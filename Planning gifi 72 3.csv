@@ -1,0 +1,32 @@
+;N° Dossier;Ville Enl;Cp Liv;Date Enl;Heure Enl;Date Liv;Tps;Ref chargement;Code Dest;Date Liv;Destinataire;Ville Liv;Heure Liv;Palette;km Tournée theorique;kms tournée reel;;heures theoriques+ liv +coupure;heure reelles;;Montant Transport; Montant Dédié
+1;965927;Mans (le);86100;20/10/20;11:00;21/10/20;Stil;965927;10824;21/10/20;GIFI CHATELLERAULT 2;Châtellerault;09:30;5;;;;;;;;611
+;965927;Mans (le);53200;20/10/20;11:00;21/10/20;Stil;965927;10255;21/10/20;GIFI CHÂTEAU GONTIER;Laigné;11:30;6;;;;;;;;0
+;965927;Mans (le);72650;20/10/20;11:00;21/10/20;Stil;965927;10855;21/10/20;GIFI LA CHAPELLE ST AUBIN;Chapelle-Saint Aubin (la)(Mans (le));14:30;4;;;;;;;;0
+;;;;;;;;;;;;;;;;;;;;;;
+2;965743;Mans (le);27500;20/10/20;16:00;21/10/20;Stil;965743;10508;21/10/20;GIFI PONT AUDEMER;Saint-Germain-Village;09:00;7;;;;;;;;620
+;965743;Mans (le);27300;20/10/20;16:00;21/10/20;Stil;965743;10147;21/10/20;GIFI BERNAY;Corneville-la-Fouquetière;10:15;4;;;;;;;;0
+;965743;Mans (le);27930;20/10/20;16:00;21/10/20;Stil;965743;10882;21/10/20;GIFI GUICHAINVILLE/EVREUX;Guichainville;11:00;12;;;;;;;;0
+;965743;Mans (le);61300;20/10/20;16:00;21/10/20;Stil;965743;1714;21/10/20;GIFI AIGLE/ST SULPICE;Crulai;14:00;4;;;;;;;;0
+;;;;;;;;;;;;;;;;;;;;;;
+3;965921;Mans (le);61000;20/10/20;15:00;21/10/20;Stil;965921;10610;21/10/20;GIFI ALENCON 2;Alençon;13:30;4;;;;;;;;526
+;965921;Mans (le);61100;20/10/20;15:00;21/10/20;Stil;965921;1884;21/10/20;GIFI FLERS;Saint-Georges-des-Groseillers;09:00;16;;;;;;;;0
+;965921;Mans (le);61600;20/10/20;15:00;21/10/20;Stil;965921;10551;21/10/20;GIFI LA FERTE MACE;Ferté-Macé (la);10:00;4;;;;;;;;0
+;965921;Mans (le);61200;20/10/20;15:00;21/10/20;Stil;965921;10024;21/10/20;GIFI ARGENTAN;Moulins-sur-Orne;11:30;5;;;;;;;;0
+;;;;;;;;;;;;;;;;;;;;;;
+4;965924;Mans (le);29100;20/10/20;14:00;21/10/20;Stil;965924;1306;21/10/20;GIFI DOUARNENEZ;Kerlaz;11:00;5;;;;;;;376;
+;965924;Mans (le);29270;20/10/20;14:00;21/10/20;Stil;965924;10799;21/10/20;GIFI CARHAIX 2;Carhaix-Plouguer;09:30;9;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
+5;965740;Mans (le);50400;20/10/20;15:00;21/10/20;Stil;965740;835;21/10/20;GIFI GRANVILLE;Yquelon;10:30;10;;;;;;;525;
+;965740;Mans (le);14500;20/10/20;15:00;21/10/20;Stil;965740;10625;21/10/20;GIFI VIRE;Vire;09:00;5;;;;;;;;
+;965740;Mans (le);50300;20/10/20;15:00;21/10/20;Stil;965740;10652;21/10/20;GIFI ST MARTIN DES CHAMPS;Saint-Martin-des-Champs;11:45;6;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
+6;965928;Mans (le);44570;20/10/20;14:00;21/10/20;Stil;965928;10795;21/10/20;GIFI TRIGNAC;Trignac;09:30;5;;;;;;;238;
+;965928;Mans (le);44350;20/10/20;14:00;21/10/20;Stil;965928;10718;21/10/20;GIFI GUERANDE;Guérande;10:45;9;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
+7;965930;Mans (le);79000;20/10/20;14:00;21/10/20;Stil;965930;11314;21/10/20;GIFI NIORT2 GIFI MAG SA;Niort;09:30;8;;;;;;;174;
+;;;;;;;;;;;;;;;;;;;;;1313;1757
+;;;;;;;;;;;;;Dédié;71;;;;;;;;
+;;;;;;;;;;;;;Afft;57;;;;;;;;
+;;;;;;;;;;;;;;128;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;

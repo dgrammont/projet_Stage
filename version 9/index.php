@@ -72,6 +72,7 @@
                     </thead>
                 </table>
                 <input type="button" value="ajouté ligne" id="button" onclick="addLine()">
+                
             </div>               
         </div>
     </body>
@@ -127,7 +128,7 @@
             });
         });
     });
-    
+
 
 </script>
 <!-- moyenne des chargement 57 palette par heure -->
@@ -231,14 +232,17 @@
 </script>
 <!-- permet de rajouter une ligne -->
 <script>
-function addLine() {
-    var t = $('#data-planning').DataTable();
-     var nbLigne = 1;
-       
+    function addLine() {
+        var t = $('#data-planning').DataTable();
+        var nbLigne = 1;
+
         while (document.getElementById(nbLigne) !== null) {
             nbLigne++;
-        }	
-          //heure de debut du cariste
+        }
+
+        var nbLigneReport = "nbLigne";
+        nbLigneReport += nbLigne;
+        //heure de debut du cariste
         var time_Cariste_h_Deb = "caristeHdeb";
         time_Cariste_h_Deb += nbLigne;
         //heure de fin du cariste
@@ -263,49 +267,47 @@ function addLine() {
         var time_Chargeur_h_Fin = "chargeurhfin";
         time_Chargeur_h_Fin += nbLigne;
 
-    var line = "<input type='text' id='"+nbLigne+"' value='"+nbLigne+"' style='width: 50px';/>";
-    var text = "<input type='text'/>";
-    var number = "<input type='number'/>";
-    var time = "<input type='time' />";
-    var report = "<input type='text'  style='width: 40px; height: 10px'/>";
-    var raq= "<input type='number' style='width: 80px'/>";
-    var nbPalCariste = "<input type='number' id='"+nb_pal_Cariste+"' style='width: 80px'/>";
-    var nbPalCharg ="<input type='number' id='"+nb_pal_Chargeur+"' style='width: 80px'/>";
-    var nomCariste = "<input type='text' id='"+nom_Cariste+"' />";
-    var nomChargeur = "<input type='text' id='"+nom_Chargeur+"' />";
-    var timeDebCariste = "<input type='time' id='"+time_Cariste_h_Deb+"'/>";
-    var timeFinCariste = "<input type='time' id='"+time_Cariste_h_Fin+"'/>";
-    var timeDebChargeur = "<input type='time' id='"+time_Chargeur_h_Deb+"'/>";
-    var timeFinChargeur = "<input type='time' id='"+time_Chargeur_h_Fin+"'/>";
-   var counter =1;
-        t.row.add( {
-        
-        
-           ligne: line,
-           expo_Mag: text,
-           report: report,
-           dpt: number,
-           edi: number,
-           hrev: time,
-           transporteur: text,
-           heure_Liv: time,
-           destinataires: text,
-           nb_Supp: nbPalCharg,
-           quai: text,
-           cariste: nomCariste,
-           destock_HD: timeDebCariste,
-           destock_HF: timeFinCariste,
-           h_Arriv: time,
-           porte: text,
-           chargeur: nomChargeur,
-           charg_H_Deb: timeDebChargeur,
-           charg_H_Fin: timeFinChargeur,
-           nb_Supp_Charg: nbPalCariste,
-           nb_Raq: raq,
-           nb_pal_leg: raq,
-           site: text
- 
-       } ).draw( false );
-        counter++;
-}
+        var line = "<input type='text' id='" + nbLigne + "' value='" + nbLigne + "' style='width: 50px';/>";
+        var text = "<input type='text'/>";
+        var number = "<input type='number'/>";
+        var time = "<input type='time' />";
+        var report = "<input type='text' id='" + nbLigneReport + "' style='width: 40px; height: 10px'/>";
+        var raq = "<input type='number' style='width: 80px'/>";
+        var nbPalCariste = "<input type='number' id='" + nb_pal_Cariste + "' style='width: 80px' onchange='diffTimeCarist()'/>";
+        var nbPalCharg = "<input type='number' id='" + nb_pal_Chargeur + "' style='width: 80px' onchange='diffTimeCharg()'/>";
+        var nomCariste = "<input type='text' id='" + nom_Cariste + "' />";
+        var nomChargeur = "<input type='text' id='" + nom_Chargeur + "' />";
+        var timeDebCariste = "<input type='time' id='" + time_Cariste_h_Deb + "' onchange='diffTimeCarist()'/>";
+        var timeFinCariste = "<input type='time' id='" + time_Cariste_h_Fin + "' onchange='diffTimeCarist()'/>";
+        var timeDebChargeur = "<input type='time' id='" + time_Chargeur_h_Deb + "' onchange='diffTimeCharg()'/>";
+        var timeFinChargeur = "<input type='time' id='" + time_Chargeur_h_Fin + "' onchange='diffTimeCharg()'/>";
+        t.row.add({
+
+            ligne: line,
+            expo_Mag: text,
+            report: report,
+            dpt: number,
+            edi: number,
+            hrev: time,
+            transporteur: text,
+            heure_Liv: time,
+            destinataires: text,
+            nb_Supp: nbPalCariste,
+            quai: text,
+            cariste: nomCariste,
+            destock_HD: timeDebCariste,
+            destock_HF: timeFinCariste,
+            h_Arriv: time,
+            porte: text,
+            chargeur: nomChargeur,
+            charg_H_Deb: timeDebChargeur,
+            charg_H_Fin: timeFinChargeur,
+            nb_Supp_Charg: nbPalCharg,
+            nb_Raq: raq,
+            nb_pal_leg: raq,
+            site: text
+
+        }).draw(false);
+    }
 </script>
+

@@ -16,6 +16,9 @@ Donc il ma demandé de transformé tous ce procesus en web.
 1. Donné des *id* au element du tableau pour pouvoir lire des information du tableau depuis la page pricipale
 1. Metre en place un calculateur de productivité et l'intégré a la page 
 1. Pouvoir rajouté des linge dans le tableau
+1. Creation d'une base de donnée 
+1. Communication avec la base de donnée 
+1. Ajout de la base de donnée dans le réseaux de la société 
 
 *Lien des site utilsé pour faire les programme*
     

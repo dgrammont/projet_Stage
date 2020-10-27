@@ -7,17 +7,17 @@
     <body>
 
         <input type="text" id="test">
-        <input type="submit" id="send" value="click">
+        <input type="submit" id="send" value="click" onclick="send()">
         <div id="yes"></div>
 
 
         <script>
-            function send(event) {
-                event.preventDefault();
+            function send() {
+                //event.preventDefault();
                 //la val
-                var donnee = $('#test').val();
+                var donnee = $('#test').value;
                 $.ajax({
-                    url: "controleur.php",
+                    url: "./controleur.php",
                     data: {
                         'commande': 'ajoutLigne',
                         'ligne': donnee

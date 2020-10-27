@@ -71,17 +71,6 @@ function createBdd() {
     }
 }
 
-function renvoiTable() {
-    try {
-        $bdd = connexionBdd();
-        $requete = $bdd->prepare("SELECT * form stage");
-        $requete->execute() or die(print_r($requete->errorInfo()));
-    } catch (PDOException $e) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
-        die();
-    }
-}
-
 function ajoutLigne($ligne) {
     try {
         $test = "succces";
@@ -102,18 +91,18 @@ function ajoutLigne($ligne) {
     }
 }
 
-function ajouterLignebdd($ligne, $exp, $report, $dpt, $edi, $h_rev, $transporteur, $h_liv, $destinataire, $nb_supp, $quai, $cariste, $debut_cariste, $fin_cariste, $h_ariv, $porte, $chargeur, $debut_charg, $fin_chargeur, $nb_supp_charges, $nb_raq, $nb_pal_leg, $site){
-       try {    
-        $bdd = connexionBdd();
-       $requete = $bdd->prepare("insert into stage (ligne, exp, report, dpt, edi, hRev, transporteur, hLiv, destinataire, nbSupp, quai, cariste, debutCariste, finCariste, hAriv, porte, chargeur, debutCharg, finCharg, nbSuppCharge, nbRaq, nbPalLeg, site) values(:ligne, :exp, :report, :dpt, :edi, :h_rev, :transporteur, :h_liv, :destinataire, :nb_supp, :quai, :cariste, :debut_cariste, :fin_cariste, :h_ariv, :porte, :chargeur, :debut_charg, :fin_charg, :nb_supp_charge, :nb_raq, :nb_pal_leg, :site);");
-        $requete->bindParam(':ligne', $ligne);  $requete->bindParam(':exp', $exp); $requete->bindParam(':report', $report);  $requete->bindParam(':dpt', $dpt);$requete->bindParam(':edi', $edi); $requete->bindParam(':h_rev', $h_rev); $requete->bindParam(':transporteur', $transporteur); $requete->bindParam(':h_liv', $h_liv); $requete->bindParam(':destinataire', $destinataire); $requete->bindParam(':nb_supp', $nb_supp);  $requete->bindParam(':quai', $quai); $requete->bindParam(':cariste', $cariste); $requete->bindParam(':debut_cariste', $debut_cariste); $requete->bindParam(':fin_cariste', $fin_cariste); $requete->bindParam(':h_ariv', $h_ariv); $requete->bindParam(':porte', $porte); $requete->bindParam(':chargeur', $chargeur); $requete->bindParam(':debut_charg', $debut_charg); $requete->bindParam(':fin_charg', $fin_chargeur); $requete->bindParam(':nb_supp_charge', $nb_supp_charges); $requete->bindParam(':nb_raq', $nb_raq);  $requete->bindParam(':nb_pal_leg', $nb_pal_leg);$requete->bindParam(':site', $site);   
-        $requete->execute() or die(print_r($requete->errorInfo()));
-        $requete->closeCursor();
-    } catch (PDOException $e) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
-        die();
-    }
-}
+//function ajouterLignebdd($ligne, $exp, $report, $dpt, $edi, $h_rev, $transporteur, $h_liv, $destinataire, $nb_supp, $quai, $cariste, $debut_cariste, $fin_cariste, $h_ariv, $porte, $chargeur, $debut_charg, $fin_chargeur, $nb_supp_charges, $nb_raq, $nb_pal_leg, $site){
+//       try {    
+//        $bdd = connexionBdd();
+//       $requete = $bdd->prepare("insert into stage (ligne, exp, report, dpt, edi, hRev, transporteur, hLiv, destinataire, nbSupp, quai, cariste, debutCariste, finCariste, hAriv, porte, chargeur, debutCharg, finCharg, nbSuppCharge, nbRaq, nbPalLeg, site) values(:ligne, :exp, :report, :dpt, :edi, :h_rev, :transporteur, :h_liv, :destinataire, :nb_supp, :quai, :cariste, :debut_cariste, :fin_cariste, :h_ariv, :porte, :chargeur, :debut_charg, :fin_charg, :nb_supp_charge, :nb_raq, :nb_pal_leg, :site);");
+//        $requete->bindParam(':ligne', $ligne);  $requete->bindParam(':exp', $exp); $requete->bindParam(':report', $report);  $requete->bindParam(':dpt', $dpt);$requete->bindParam(':edi', $edi); $requete->bindParam(':h_rev', $h_rev); $requete->bindParam(':transporteur', $transporteur); $requete->bindParam(':h_liv', $h_liv); $requete->bindParam(':destinataire', $destinataire); $requete->bindParam(':nb_supp', $nb_supp);  $requete->bindParam(':quai', $quai); $requete->bindParam(':cariste', $cariste); $requete->bindParam(':debut_cariste', $debut_cariste); $requete->bindParam(':fin_cariste', $fin_cariste); $requete->bindParam(':h_ariv', $h_ariv); $requete->bindParam(':porte', $porte); $requete->bindParam(':chargeur', $chargeur); $requete->bindParam(':debut_charg', $debut_charg); $requete->bindParam(':fin_charg', $fin_chargeur); $requete->bindParam(':nb_supp_charge', $nb_supp_charges); $requete->bindParam(':nb_raq', $nb_raq);  $requete->bindParam(':nb_pal_leg', $nb_pal_leg);$requete->bindParam(':site', $site);   
+//        $requete->execute() or die(print_r($requete->errorInfo()));
+//        $requete->closeCursor();
+//    } catch (PDOException $e) {
+//        print "Erreur !: " . $e->getMessage() . "<br/>";
+//        die();
+//    }
+//}
 
 function mise_jour_ligne(){
     try{

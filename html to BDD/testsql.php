@@ -5,19 +5,20 @@
         <title>test htmljs to bdd</title>
     </head>
     <body>
-
-        <input type="text" id="test">
-        <input type="submit" id="send" value="click" onclick="send()">
+    <form id="formulaire">
+        <input type="text" id="test" name="test" placeholder="Donnez un numero de ligne">
+        <input type="submit" value="send">
+    </form>
         <div id="yes"></div>
 
 
         <script>
-            function send() {
-                //event.preventDefault();
+            function send(event) {
+                event.preventDefault();
                 //la val
-                var donnee = $('#test').value;
+                var donnee = $('#test').val();
                 $.ajax({
-                    url: "./controleur.php",
+                    url: "controleur.php",
                     data: {
                         'commande': 'ajoutLigne',
                         'ligne': donnee
@@ -37,12 +38,14 @@
             }
 
             $(document).ready(function () {
-                $("#send").submit(send);
+                $("#formulaire").submit(send);
             });
 
 
         </script>
-
+<?php 
+//require_once './bddRequete.php';
+//mise_jour_ligne();
+?>
     </body>
 </html>
-

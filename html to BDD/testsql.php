@@ -9,11 +9,6 @@
     <form id="formulaire">
         <input type="text" id="test" name="test" placeholder="Donnez un numero de ligne">
         <input type="submit" value="send">
-    </form>
+
         <div id="yes"></div>    
-        <?php
-        require_once './bddRequete.inc.php';
-        voirBass();
-        ?>
-    </body>
-</html>
+     

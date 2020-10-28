@@ -30,7 +30,7 @@
             }
 
         </style>
-    </head>
+    
     <body>
         <div class="container-md" style="margin-left: 24px;margin-right: 24px;">
             <br />
@@ -81,11 +81,7 @@
                             <th>site</th>
                         </tr>
                     </thead>
-                </table>
-            </div>               
-        </div>
-    </body>
-</html>
+               
 
 
 

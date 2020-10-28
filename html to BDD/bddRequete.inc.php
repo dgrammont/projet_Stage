@@ -5,7 +5,7 @@ define("LOGIN", "root");
 define("MOTDEPASSE", "toto");
 define("NOMDELABASE", "ma_bases");
 
-//connection avec la basse de donnée
+//connection avec la basse de donnée (fonctionnel)
 function connexionBdd() {
     try {
         $pdoOptions = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
@@ -53,7 +53,7 @@ function delBdd() {
 function createBdd() {
     try {
         $bdd = connexionBdd();
-        $requete = $bdd->prepare("CREATE TABLE stage (ligne int(10), exp varchar(60), report varchar(2), dpt int(10), edi int(10), hRev time(0), transporteur varchar(60), hLiv time(0), destinataire varchar(60), nbSupp int(10), quai varchar(20), cariste varchar(40), debutCariste time(0), finCariste time(0), hAriv time(0), porte varchar(20), chargeur varchar(40), debutCarg time(0), finCharg time(0), nbSuppCarhg int(10), nbRaq int(10), nbPalLeg int(10), site varchar(60));");
+        $requete = $bdd->prepare("CREATE TABLE stage (ligne int(10), exp varchar(60), report varchar(2), dpt int(10), edi int(10), hRev time(0), transporteur varchar(60), hLiv time(0), destinataire varchar(60), nbSupp int(10), quai varchar(20), cariste varchar(40), debutCariste time(0), finCariste time(0), hAriv time(0), porte varchar(20), chargeur varchar(40), debutCarg time(0), finCharg time(0), nbSuppCharg int(10), nbRaq int(10), nbPalLeg int(10), site varchar(60));");
         $requete->execute() or die(print_r($requete->errorInfo()));
     } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
@@ -69,10 +69,7 @@ function ajoutLigne($ligne) {
         $requete = $bdd->prepare("INSERT INTO test (ligne) VALUES (:ligne)");
         $requete->bindParam(':ligne', $ligne);
         $requete->execute() or die(print_r($requete->errorInfo()));
-
-
-
-       
+   
         $requete->closeCursor();
         header('Content-type: application/json');
         echo json_encode($test);
@@ -101,6 +98,47 @@ function ajoutData($ligne){
     $requete = $bdd->prepare("intert into stage set (ligne) values(:ligne);");
     $requete->bindParam(':ligne', $ligne);
     $requete->execute() or die(print_r($requete->errorInfo()));
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+
+//recupére tous le tableau pour le metre dans la basses de données (non testé)
+function ajoutTableau($ligne,$report,$exp,$dpt,$edi,$hrev,$transporteur,$hLiv,$destinataire,$nbSupp,$quai,$cariste,$debutCariste,$finCariste,$hAriv,$porte,$chargeur,$debutChargeur,$finChargeur,$nbSuppChargeur,$nbRaq,$nbpalLeg,$site){
+    try{
+    $bdd = connexionBdd();
+    $requete = $bdd->prepare("intert into stage set (ligne) values(:ligne);");
+    $requete->bindParam(':ligne',$ligne);
+    ajoutTableauDeux($ligne,$report,$exp,$dpt,$edi,$hrev,$transporteur,$hLiv,$destinataire,$nbSupp,$quai,$cariste,$debutCariste,$finCariste,$hAriv,$porte,$chargeur,$debutChargeur,$finChargeur,$nbSuppChargeur,$nbRaq,$nbpalLeg,$site);
+    $requete->execute() or die(print_r($requete->errorInfo()));
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+//une fois la ligne crée on ajout toutes les donnée avec commme condition le meme numero ligne 
+function ajoutTableauDeux($ligne,$report,$exp,$dpt,$edi,$hrev,$transporteur,$hLiv,$destinataire,$nbSupp,$quai,$cariste,$debutCariste,$finCariste,$hAriv,$porte,$chargeur,$debutChargeur,$finChargeur,$nbSuppChargeur,$nbRaq,$nbpalLeg,$site){
+    try{
+    $bdd = connexionBdd();
+    $requete = $bdd->prepare("update stage set (exp,report,dpt,edi,hRev,transporteur,hLiv,destinataire,nbSupp,quai,cariste,debutCariste,finCariste,hAriv,porte,chargeur,debutChargeur,finChargeur,nbSuppCharg,nbRaq,nbPalLeg,site) values(:exp,:report,:dpt,:edi;:hRev;:trasporteur,:hLiv,:destinataire,:nbSupp,:quai,:cariste,:debutCariste,:finCariste,:hAriv,:porte,:chargeur,:debutChargeur,:finChargeur,:nbSuppCharg,:nbRaq,:nbPalLeg,:site) where ligne = :ligne;");
+    
+    $requete->bindParam(':ligne', $ligne); $requete->bindParam(':exp', $exp);$requete->bindParam(':report', $report); $requete->bindParam(':dpt', $dpt); $requete->bindParam(':edi', $edi);$requete->bindParam(':hRev', $hrev);$requete->bindParam(':transporteur', $transporteur);$requete->bindParam(':hLiv', $hLiv);$requete->bindParam(':destinataire', $destinataire);$requete->bindParam(':nbSupp', $nbSupp);$requete->bindParam(':quai', $quai);$requete->bindParam(':cariste', $cariste);$requete->bindParam(':debutCariste', $debutCariste);$requete->bindParam(':finCariste', $finCariste);$requete->bindParam(':hAriv', $hAriv);$requete->bindParam(':porte', $porte);$requete->bindParam(':chargeur', $chargeur);$requete->bindParam(':debutChargeur', $debutChargeur);$requete->bindParam(':finChargeur', $finChargeur);$requete->bindParam(':nbSuppChargeur', $nbSuppChargeur);$requete->bindParam(':nbRaq', $nbRaq);$requete->bindParam(':nbPalLeg', $nbpalLeg);$requete->bindParam(':site', $site);
+    
+    $requete->execute() or die(print_r($requete->errorInfo()));
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+
+//renvoye tous le contenu de la basses vers le tableau (non testé)
+function renvoyerTableau(){
+    try{
+    $bdd = connexionBdd();
+    $requete = $bdd->prepare("select * from stage ;");
+    $requete->execute() or die(print_r($requete->errorInfo()));
+    echo json_encode($requete);
     } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
         die();

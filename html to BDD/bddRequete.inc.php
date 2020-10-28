@@ -108,7 +108,7 @@ function ajoutData($ligne){
 function ajoutTableau($ligne,$report,$exp,$dpt,$edi,$hrev,$transporteur,$hLiv,$destinataire,$nbSupp,$quai,$cariste,$debutCariste,$finCariste,$hAriv,$porte,$chargeur,$debutChargeur,$finChargeur,$nbSuppChargeur,$nbRaq,$nbpalLeg,$site){
     try{
     $bdd = connexionBdd();
-    $requete = $bdd->prepare("intert into stage set (ligne) values(:ligne);");
+    $requete = $bdd->prepare("insert into stage (ligne) values(:ligne);");
     $requete->bindParam(':ligne',$ligne);
     ajoutTableauDeux($ligne,$report,$exp,$dpt,$edi,$hrev,$transporteur,$hLiv,$destinataire,$nbSupp,$quai,$cariste,$debutCariste,$finCariste,$hAriv,$porte,$chargeur,$debutChargeur,$finChargeur,$nbSuppChargeur,$nbRaq,$nbpalLeg,$site);
     $requete->execute() or die(print_r($requete->errorInfo()));
@@ -121,7 +121,7 @@ function ajoutTableau($ligne,$report,$exp,$dpt,$edi,$hrev,$transporteur,$hLiv,$d
 function ajoutTableauDeux($ligne,$report,$exp,$dpt,$edi,$hrev,$transporteur,$hLiv,$destinataire,$nbSupp,$quai,$cariste,$debutCariste,$finCariste,$hAriv,$porte,$chargeur,$debutChargeur,$finChargeur,$nbSuppChargeur,$nbRaq,$nbpalLeg,$site){
     try{
     $bdd = connexionBdd();
-    $requete = $bdd->prepare("update stage set (exp,report,dpt,edi,hRev,transporteur,hLiv,destinataire,nbSupp,quai,cariste,debutCariste,finCariste,hAriv,porte,chargeur,debutChargeur,finChargeur,nbSuppCharg,nbRaq,nbPalLeg,site) values(:exp,:report,:dpt,:edi;:hRev;:trasporteur,:hLiv,:destinataire,:nbSupp,:quai,:cariste,:debutCariste,:finCariste,:hAriv,:porte,:chargeur,:debutChargeur,:finChargeur,:nbSuppCharg,:nbRaq,:nbPalLeg,:site) where ligne = :ligne;");
+    $requete = $bdd->prepare("update stage set (exp=:exp,report=:report,dpt=:dpt,edi=:edi,hRev=:hRev,transporteur=:transporteur,hLiv=:hLiv,destinataire=:destinataire,nbSupp=:nbSupp,quai=:quai,cariste=:cariste,debutCariste=:debutCariste,finCariste=:finCariste,hAriv=:hAriv,porte=:porte,chargeur=:chargeur,debutChargeur=:debutChargeur,finChargeur=:finChargeur,nbSuppCharg=:nbSuppCarg,nbRaq=:nbRaq,nbPalLeg=:nbPalLeg,site=:site) where ligne = :ligne;");
     
     $requete->bindParam(':ligne', $ligne); $requete->bindParam(':exp', $exp);$requete->bindParam(':report', $report); $requete->bindParam(':dpt', $dpt); $requete->bindParam(':edi', $edi);$requete->bindParam(':hRev', $hrev);$requete->bindParam(':transporteur', $transporteur);$requete->bindParam(':hLiv', $hLiv);$requete->bindParam(':destinataire', $destinataire);$requete->bindParam(':nbSupp', $nbSupp);$requete->bindParam(':quai', $quai);$requete->bindParam(':cariste', $cariste);$requete->bindParam(':debutCariste', $debutCariste);$requete->bindParam(':finCariste', $finCariste);$requete->bindParam(':hAriv', $hAriv);$requete->bindParam(':porte', $porte);$requete->bindParam(':chargeur', $chargeur);$requete->bindParam(':debutChargeur', $debutChargeur);$requete->bindParam(':finChargeur', $finChargeur);$requete->bindParam(':nbSuppChargeur', $nbSuppChargeur);$requete->bindParam(':nbRaq', $nbRaq);$requete->bindParam(':nbPalLeg', $nbpalLeg);$requete->bindParam(':site', $site);
     

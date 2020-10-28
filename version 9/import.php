@@ -48,8 +48,7 @@ if (move_uploaded_file($_FILES['csv_file']['tmp_name'], $uploadfile)) { // uploa
            $charg_nomChargeur = $nom_Chargeur.$nbligne;
            $charg_nb_pal = $nb_pal_Chargeur.$nbligne;
            
-           $nb_id_ligne = $nb_ligne.$nbligne;
-          
+           $nb_id_ligne = $nb_ligne.$nbligne;         
            
            //evite les ligne vide
             if ($row[2] !== "") {
@@ -78,11 +77,9 @@ if (move_uploaded_file($_FILES['csv_file']['tmp_name'], $uploadfile)) { // uploa
                     'nb_pal_leg' => "<input type='number' style='width: 80px'/>",
                     'site' => "<input type='text'/>"
                 ));
-                $nbligne = $nbligne + 1;
-                
+                $nbligne = $nbligne + 1;               
             }
-        }
-        
+        }   
     }
 } else { // pb upload
     $data[] = array(

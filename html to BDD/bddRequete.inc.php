@@ -5,6 +5,7 @@ define("LOGIN", "root");
 define("MOTDEPASSE", "toto");
 define("NOMDELABASE", "ma_bases");
 
+//connection avec la basse de donnée
 function connexionBdd() {
     try {
         $pdoOptions = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
@@ -17,29 +18,16 @@ function connexionBdd() {
     }
 }
 
+//permet de voir toutes les entré dans la table (fonctionnel)
 function voirBass() {
     try {
         $bdd = connexionBdd();
         $requete = $bdd->prepare("SELECT * FROM stage");
         $requete->execute() or die(print_r($requete->errorInfo()));
-        echo '<table>';
-        echo '<tr>';
-        echo '<th>ligne</th>';
-        echo '<th>exp</th>';
-        echo '<th>report</th>';
-        echo '</tr>';
+        echo '<table>'; echo '<tr>'; echo '<th>ligne</th>'; echo '<th>exp</th>';  echo '<th>report</th>'; echo '<th>dpt</th>';  echo '<th>edi</th>'; echo '<th>hRev</th>';  echo '<th>transporteur</th>'; echo '<th>hLiv</th>';  echo '<th>destinataire</th>'; echo '<th>nbSupp</th>';  echo '<th>quai</th>'; echo '<th>cariste</th>';  echo '<th>debutCariste</th>'; echo '<th>finCariste</th>';  echo '<th>hAriv</th>'; echo '<th>porte</th>';  echo '<th>chargeur</th>'; echo '<th>debutCharg</th>';  echo '<th>finCharg</th>'; echo '<th>nbSuppCharg</th>';  echo '<th>nbRaq</th>'; echo '<th>nbPalLeg</th>';  echo '<th>site</th>'; echo '</tr>';
         while ($ligne = $requete->fetch()) {
-            echo '<tr>';
-            echo '<td>';
-            echo $ligne['ligne'];
-            echo '</td>';
-            echo '<td>';
-            echo $ligne['exp'];
-            echo '</td>';
-            echo '<td>';
-            echo $ligne['report'];
-            echo '</td>';
-            echo '<tr>';
+            echo '<tr>';  echo '<td>';   echo $ligne['ligne'];  echo '</td>'; echo '<td>'; echo $ligne['exp'];   echo '</td>';   echo '<td>';  echo $ligne['report']; echo '</td>';
+            echo '<td>';   echo $ligne['dpt'];  echo '</td>'; echo '<td>'; echo $ligne['edi'];   echo '</td>';   echo '<td>';  echo $ligne['hRev']; echo '</td>'; echo '<td>';   echo $ligne['transporteur'];  echo '</td>'; echo '<td>'; echo $ligne['hLiv'];   echo '</td>';   echo '<td>';  echo $ligne['destinataire']; echo '</td>';echo '<td>';   echo $ligne['nbSupp'];  echo '</td>'; echo '<td>'; echo $ligne['quai'];   echo '</td>';   echo '<td>';  echo $ligne['cariste']; echo '</td>';echo '<td>';   echo $ligne['debutCariste'];  echo '</td>'; echo '<td>'; echo $ligne['finCariste'];   echo '</td>';   echo '<td>';  echo $ligne['hAriv']; echo '</td>';echo '<td>';   echo $ligne['porte'];  echo '</td>'; echo '<td>'; echo $ligne['chargeur'];   echo '</td>';   echo '<td>';  echo $ligne['debutCarg']; echo '</td>';echo '<td>';   echo $ligne['finCharg'];  echo '</td>'; echo '<td>'; echo $ligne['nbSuppCharg'];   echo '</td>';   echo '<td>';  echo $ligne['nbRaq']; echo '</td>';echo '<td>';  echo $ligne['nbPalLeg']; echo '</td>';echo '<td>';  echo $ligne['site']; echo '</td>';         echo '<tr>';   
         }
         echo '</table>';
         $requete->closeCursor();
@@ -49,6 +37,7 @@ function voirBass() {
     }
 }
 
+//suprime la bases de donnée (fonctionnel)
 function delBdd() {
     try {
         $bdd = connexionBdd();
@@ -60,6 +49,7 @@ function delBdd() {
     }
 }
 
+//crée la bases de donnée (fonctionnel)
 function createBdd() {
     try {
         $bdd = connexionBdd();
@@ -71,6 +61,7 @@ function createBdd() {
     }
 }
 
+// permet de rajouté une ligne avec comme seul atribut le numero de ligne , quand la fonction add est appelé (non fonctionnel)
 function ajoutLigne($ligne) {
     try {
         $test = "succces";
@@ -91,23 +82,11 @@ function ajoutLigne($ligne) {
     }
 }
 
-//function ajouterLignebdd($ligne, $exp, $report, $dpt, $edi, $h_rev, $transporteur, $h_liv, $destinataire, $nb_supp, $quai, $cariste, $debut_cariste, $fin_cariste, $h_ariv, $porte, $chargeur, $debut_charg, $fin_chargeur, $nb_supp_charges, $nb_raq, $nb_pal_leg, $site){
-//       try {    
-//        $bdd = connexionBdd();
-//       $requete = $bdd->prepare("insert into stage (ligne, exp, report, dpt, edi, hRev, transporteur, hLiv, destinataire, nbSupp, quai, cariste, debutCariste, finCariste, hAriv, porte, chargeur, debutCharg, finCharg, nbSuppCharge, nbRaq, nbPalLeg, site) values(:ligne, :exp, :report, :dpt, :edi, :h_rev, :transporteur, :h_liv, :destinataire, :nb_supp, :quai, :cariste, :debut_cariste, :fin_cariste, :h_ariv, :porte, :chargeur, :debut_charg, :fin_charg, :nb_supp_charge, :nb_raq, :nb_pal_leg, :site);");
-//        $requete->bindParam(':ligne', $ligne);  $requete->bindParam(':exp', $exp); $requete->bindParam(':report', $report);  $requete->bindParam(':dpt', $dpt);$requete->bindParam(':edi', $edi); $requete->bindParam(':h_rev', $h_rev); $requete->bindParam(':transporteur', $transporteur); $requete->bindParam(':h_liv', $h_liv); $requete->bindParam(':destinataire', $destinataire); $requete->bindParam(':nb_supp', $nb_supp);  $requete->bindParam(':quai', $quai); $requete->bindParam(':cariste', $cariste); $requete->bindParam(':debut_cariste', $debut_cariste); $requete->bindParam(':fin_cariste', $fin_cariste); $requete->bindParam(':h_ariv', $h_ariv); $requete->bindParam(':porte', $porte); $requete->bindParam(':chargeur', $chargeur); $requete->bindParam(':debut_charg', $debut_charg); $requete->bindParam(':fin_charg', $fin_chargeur); $requete->bindParam(':nb_supp_charge', $nb_supp_charges); $requete->bindParam(':nb_raq', $nb_raq);  $requete->bindParam(':nb_pal_leg', $nb_pal_leg);$requete->bindParam(':site', $site);   
-//        $requete->execute() or die(print_r($requete->errorInfo()));
-//        $requete->closeCursor();
-//    } catch (PDOException $e) {
-//        print "Erreur !: " . $e->getMessage() . "<br/>";
-//        die();
-//    }
-//}
-
+// permet de modifier une ligne (non fonctionnel)
 function mise_jour_ligne(){
     try{
     $bdd = connexionBdd();
-    $requete = $bdd->prepare("update stage set ligne='2' where report='x';");
+    $requete = $bdd->prepare("update stage set ligne='1' where ligne='10';");
     $requete->execute() or die(print_r($requete->errorInfo()));
     } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
@@ -115,8 +94,8 @@ function mise_jour_ligne(){
     }
 }
 
-
-function newLigne($ligne){
+//permet d'ajouté des donnée dans une ligne (non fonctionnel)
+function ajoutData($ligne){
      try{
     $bdd = connexionBdd();
     $requete = $bdd->prepare("intert into stage set (ligne) values(:ligne);");

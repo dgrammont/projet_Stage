@@ -1,4 +1,12 @@
-//function send(event)
+
+
+//a appelé lors de l'envoyer des donné d'une ligne crée par utilisateur
+function ligneToBddAddLigne(){
+    var expMag = $('#exp_Mag').val();
+    
+}
+//
+////function send(event)
 //{
 //    //ne pas envoyer les données du formulaire  (sinon il y aura un changement de page)
 //    event.preventDefault();

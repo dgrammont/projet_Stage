@@ -17,12 +17,27 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             delBdd(); 
             //recrée la basse
             createBdd();
+            break;
         case 'voir_la_base':
             voirBass();
-        //a apelé lor de la création d'une nouvelle ligne
+            break;
+        //a appelé lors de la création d'une nouvelle ligne par utilisateur
         case 'nouvelleLigne':
             $numero = filter_input(INPUT_GET, 'ligne');
             ajoutLigne($numero);
+            break;
+        //a appelé lors de l'envoie de donné d'une ligne crée par l'utilisateur
+        case 'envoyerligne':
+            break;
+        //a appelé lors de l'envoie de donné d'une ligne crée par le fichier
+        case 'envoyer_tableau':
+            break;
+        //a appelé a chaque minute pour le visuel des reader 
+        case 'demande_tableau':
+            break;
+        //a appelé lors de upload du fichier 
+        case 'premier_lancement':
+            break;
         default :
             header('Content-Type: application/json');
             echo json_encode("commande inconnue");

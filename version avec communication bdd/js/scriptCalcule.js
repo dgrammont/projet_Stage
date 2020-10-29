@@ -54,6 +54,7 @@ $(document).ready(function () {
         });
         document.getElementById("ajoute_ligne").style.display = "block";
         document.getElementById("del_Talbe").style.display = "block";
+        document.getElementById("visuel").style.display = "block";
     });
 
 });
@@ -209,7 +210,7 @@ function addLine() {
     var site_id = "site";
     site_id += nbLigne;
     //id du button envoyer
-    var envoyer_id = "envoyer";
+    var envoyer_id = "envoyerNew";
     envoyer_id += nbLigne;
     //heure de debut du cariste
     var time_Cariste_h_Deb = "caristeHdeb";
@@ -335,6 +336,12 @@ function deleteTable() {
     }
 }
 
+
+
+function voirVisuel(){
+    document.location.href = "http://localhost:8000/exportVisual.html";
+}
+
 //affiche la date du jour
 $(document).ready(function () {
 
@@ -343,7 +350,24 @@ $(document).ready(function () {
     m = n.getMonth() + 1;
     d = n.getDate();
     document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
-
 });
 
-
+ 
+//$('#data-planning').dataTable( {
+//  "initComplete": function(settings, json) {
+//    var table = $('#data-planning').DataTable();
+//    $('#dataplaning tbody').on('click', '.position', function () {
+//    var row = $(this).closest('tr'); 
+//    var data = table.row( row ).data().position;
+//    console.log(data);
+//});  
+//} 
+//});
+//function test(){
+//    var table = $('#data-planning').DataTable();
+//     
+//    $('#data-planning tbody').on('click', 'tr', function () {
+//        var data = table.row( this ).data();
+//        alert( 'You clicked on '+data[0]+'\'s row' );
+//    } );
+//}

@@ -38,6 +38,9 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
         //a appelé lors de upload du fichier 
         case 'premier_lancement':
             break;
+        case 'renvoyerTable':
+            renvoyerTableau();
+            break;
         default :
             header('Content-Type: application/json');
             echo json_encode("commande inconnue");

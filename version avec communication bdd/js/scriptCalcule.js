@@ -23,7 +23,8 @@ $(document).ready(function () {
                     fixedHeader: false,
                     "lengthMenu": [[10, 15, 25, 50, 100, -1], [10, 15, 25, 50, 100, "Tous"]],
                     'iDisplayLength': 25,
-                    columns: [
+                columns: [
+                 
                         {data: "ligne"},
                         {data: "expo_Mag"},
                         {data: "report"},
@@ -48,8 +49,19 @@ $(document).ready(function () {
                         {data: "nb_pal_leg"},
                         {data: "site"},
                         {data: "envoyer"}
-                    ]
+                    ],
+                    
+                    "initComplete": function (settings, json) {
+                        var api = this.api();
+                        $('#dataplaning tbody').on('click', '.envoyer', function () {
+                            var row = $(this).closest('tr');
+                            var data = api.row(row).data().position;
+                            console.log(data);
+                        });
+                    }
                 });
+
+
             }
         });
         document.getElementById("ajoute_ligne").style.display = "block";
@@ -171,7 +183,7 @@ function addLine() {
     var nbLigneReport = "report";
     nbLigneReport += nbLigne;
     //id exp
-    var  expMag_id = "exp_Mag";
+    var expMag_id = "exp_Mag";
     expMag_id += nbLigne;
     //id dpt
     var dpt_id = "dpt";
@@ -238,21 +250,21 @@ function addLine() {
     time_Chargeur_h_Fin += nbLigne;
 
     var line = "<input type='text' id='" + nbLigne + "' value='" + nbLigne + "' style='width: 50px';/>";
-    var expo_Mag = "<input type'text' id='"+expMag_id+"'/>";
-    var dpt = "<input type='number' id='"+dpt_id+"'/>";
-    var edi = "<input type='number' id='"+edi_id+"'/>";
-    var hrev = "<input type='time' id='"+hrev_id+"'/>";
-    var transporteur = "<input type='text' id='"+transporteur_id+"'/>";
-    var hLiv = "<input type='time'   id='"+hliv_id+"'/>";
-    var destinataire = "<input type='text' id='"+destinataire_id+"'/>";
-    var quai = "<input type='text' id='"+quai_id+"'/>";
-    var hariv = "<input type='time' id='"+harriv_id+"'/>";
-    var porte = "<input type='text' id='"+porte_id+"'/>";
-    var submit = "<input type='submit' id='"+envoyer_id+"'/>";
+    var expo_Mag = "<input type'text' id='" + expMag_id + "'/>";
+    var dpt = "<input type='number' id='" + dpt_id + "'/>";
+    var edi = "<input type='number' id='" + edi_id + "'/>";
+    var hrev = "<input type='time' id='" + hrev_id + "'/>";
+    var transporteur = "<input type='text' id='" + transporteur_id + "'/>";
+    var hLiv = "<input type='time'   id='" + hliv_id + "'/>";
+    var destinataire = "<input type='text' id='" + destinataire_id + "'/>";
+    var quai = "<input type='text' id='" + quai_id + "'/>";
+    var hariv = "<input type='time' id='" + harriv_id + "'/>";
+    var porte = "<input type='text' id='" + porte_id + "'/>";
+    var submit = "<input type='submit' id='" + envoyer_id + "'/>";
     var report = "<input type='text' id='" + nbLigneReport + "' style='width: 40px; height: 10px'/>";
-    var raq = "<input type='number' id='"+nbraq_id+"' style='width: 80px'/>";
-    var nbpalleg = "<input type='number' id='"+nbpalleg_id  +"' style='width: 80px'/>";
-    var site = "<input type='text' id='"+site_id+"'/>";
+    var raq = "<input type='number' id='" + nbraq_id + "' style='width: 80px'/>";
+    var nbpalleg = "<input type='number' id='" + nbpalleg_id + "' style='width: 80px'/>";
+    var site = "<input type='text' id='" + site_id + "'/>";
     var nbPalCariste = "<input type='number' id='" + nb_pal_Cariste + "' style='width: 80px' onchange='diffTimeCarist()'/>";
     var nbPalCharg = "<input type='number' id='" + nb_pal_Chargeur + "' style='width: 80px' onchange='diffTimeCharg()'/>";
     var nomCariste = "<input type='text' id='" + nom_Cariste + "' />";
@@ -289,8 +301,8 @@ function addLine() {
         envoyer: submit
 
     }).draw(false);
-    
-     $.ajax({
+
+    $.ajax({
         url: "./php/controleur.php",
         data: {
             'commande': 'nouvelleLigne',
@@ -315,22 +327,22 @@ function deleteTable() {
     var answer = window.confirm("Vous allez surprimé le planning!");
     if (answer === true) {
         $.ajax({
-        url: "./php/controleur.php",
-        data: {
-            'commande': 'delBdd'
-        },
-        dataType: 'json',
-        method: "GET",
-        success: function (donnees, status, xhr) {
-            //metre le text de la réponse ajax dans le champs div ayant pour id yes
-            //$("#yes").text(donnees);
-        },
-        error: function (xhr, status, error) {
-            console.log("param : " + JSON.stringify(xhr));
-            console.log("status : " + status);
-            console.log("error : " + error);
-        }
-    });
+            url: "./php/controleur.php",
+            data: {
+                'commande': 'delBdd'
+            },
+            dataType: 'json',
+            method: "GET",
+            success: function (donnees, status, xhr) {
+                //metre le text de la réponse ajax dans le champs div ayant pour id yes
+                //$("#yes").text(donnees);
+            },
+            error: function (xhr, status, error) {
+                console.log("param : " + JSON.stringify(xhr));
+                console.log("status : " + status);
+                console.log("error : " + error);
+            }
+        });
     } else {
 
     }
@@ -338,7 +350,7 @@ function deleteTable() {
 
 
 
-function voirVisuel(){
+function voirVisuel() {
     document.location.href = "http://localhost:8000/exportVisual.html";
 }
 
@@ -352,22 +364,36 @@ $(document).ready(function () {
     document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
 });
 
+//afficher tous le tableau toutes les 5 min
+function afficher_table(){
+      $.ajax({
+            url: "./php/controleur.php",
+            data: {
+                'commande': 'renvoyerTable'
+            },
+            dataType: 'json',
+            method: "GET",
+            success: function (donnees, status, xhr) {
+                //metre le text de la réponse ajax dans le champs div ayant pour id yes
+                //$("#yes").text(donnees);
+            },
+            error: function (xhr, status, error) {
+                console.log("param : " + JSON.stringify(xhr));
+                console.log("status : " + status);
+                console.log("error : " + error);
+            }
+        });
+        setTimeout("afficher_table()",300000);   
  
-//$('#data-planning').dataTable( {
-//  "initComplete": function(settings, json) {
-//    var table = $('#data-planning').DataTable();
-//    $('#dataplaning tbody').on('click', '.position', function () {
-//    var row = $(this).closest('tr'); 
-//    var data = table.row( row ).data().position;
-//    console.log(data);
-//});  
-//} 
+    }
+
+//$('#data-planning').dataTable({
+//    "initComplete": function (settings, json) {
+//        var api = this.api();
+//        $('#dataplaning tbody').on('click', '.position', function () {
+//            var row = $(this).closest('tr');
+//            var data = api.row(row).data().position;
+//            console.log(data);
+//        });
+//    }
 //});
-//function test(){
-//    var table = $('#data-planning').DataTable();
-//     
-//    $('#data-planning tbody').on('click', 'tr', function () {
-//        var data = table.row( this ).data();
-//        alert( 'You clicked on '+data[0]+'\'s row' );
-//    } );
-//}

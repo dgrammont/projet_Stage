@@ -17,7 +17,7 @@ function connexionBdd() {
         die();
     }
 }
-
+//permet de vidé la base de donné 
 function viderBass() {
     try {
         $bdd = connexionBdd();
@@ -68,9 +68,8 @@ function ajoutLigne($ligne) {
     }
 }
 
-// permet de modifier une ligne (non fonctionnel)
-//Erreur !: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
-function mise_jour_ligne($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur, $hLiv, $destinataire, $nbSupp, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site) {
+// permet de modifier une ligne crée par utilisateur (fonctionnel)
+function mise_jour_ligne_uti($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur, $hLiv, $destinataire, $nbSupp, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site) {
     try {
         $bdd = connexionBdd();
         $requete = $bdd->prepare("update stage set exp=:exp,report=:report,dpt=:dpt,edi=:edi,hRev=:hRev,transporteur=:transporteur,hLiv=:hLiv,destinataire=:destinataire,nbSupp=:nbSupp,quai=:quai,cariste=:cariste,debutCariste=:debutCariste,finCariste=:finCariste,hAriv=:hAriv,porte=:porte,chargeur=:chargeur,debutCharg=:debutChargeur,finCharg=:finChargeur,nbSuppCharg=:nbSuppCharg,nbRaq=:nbRaq,nbPalLeg=:nbPalLeg,site=:site where ligne = :ligne;");
@@ -85,6 +84,35 @@ function mise_jour_ligne($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur
         $requete->bindParam(':hLiv', $hLiv);
         $requete->bindParam(':destinataire', $destinataire);
         $requete->bindParam(':nbSupp', $nbSupp);
+        $requete->bindParam(':quai', $quai);
+        $requete->bindParam(':cariste', $cariste);
+        $requete->bindParam(':debutCariste', $debutCariste);
+        $requete->bindParam(':finCariste', $finCariste);
+        $requete->bindParam(':hAriv', $hAriv);
+        $requete->bindParam(':porte', $porte);
+        $requete->bindParam(':chargeur', $chargeur);
+        $requete->bindParam(':debutChargeur', $debutChargeur);
+        $requete->bindParam(':finChargeur', $finChargeur);
+        $requete->bindParam(':nbSuppCharg', $nbSuppChargeur); 
+        $requete->bindParam(':nbRaq', $nbRaq); 
+        $requete->bindParam(':nbPalLeg', $nbpalLeg);
+        $requete->bindParam(':site', $site);
+
+        $requete->execute() or die(print_r($requete->errorInfo()));
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage() . "<br/>";
+        die();
+    }
+}
+
+// permet de modifier une ligne crée par le fichier (fonctionnel)
+function mise_jour_ligne_file($ligne, $report, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site) {
+    try {
+        $bdd = connexionBdd();
+        $requete = $bdd->prepare("update stage set report=:report,quai=:quai,cariste=:cariste,debutCariste=:debutCariste,finCariste=:finCariste,hAriv=:hAriv,porte=:porte,chargeur=:chargeur,debutCharg=:debutChargeur,finCharg=:finChargeur,nbSuppCharg=:nbSuppCharg,nbRaq=:nbRaq,nbPalLeg=:nbPalLeg,site=:site where ligne = :ligne;");
+
+        $requete->bindParam(':ligne', $ligne);      
+        $requete->bindParam(':report', $report);
         $requete->bindParam(':quai', $quai);
         $requete->bindParam(':cariste', $cariste);
         $requete->bindParam(':debutCariste', $debutCariste);

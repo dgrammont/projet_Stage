@@ -7,7 +7,7 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
     //récupération de la donnée 'commande'
     $commande = filter_input(INPUT_GET, 'commande');
     switch ($commande) {
-
+        //suprimé et recré la base de donné
         case 'delBdd':
             //suprimé la basse de donné
             delBdd(); 
@@ -20,7 +20,7 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             ajoutLigne($numero);
             break;
         //a appelé lors de l'envoie de donné d'une ligne crée par l'utilisateur
-        case 'mise_jour_ligne':
+        case 'mise_jour_ligne_uti':
             $ligne = filter_input(INPUT_GET, 'ligne');
             $report = filter_input(INPUT_GET, 'report');
             $exp = filter_input(INPUT_GET, 'exp');
@@ -45,7 +45,27 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             $nbpalLeg = filter_input(INPUT_GET, 'nbpalleg');
             $site = filter_input(INPUT_GET, 'site');
             
-            mise_jour_ligne($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur, $hLiv, $destinataire, $nbSupp, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site);
+            mise_jour_ligne_uti($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur, $hLiv, $destinataire, $nbSupp, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site);
+            break;
+         //a appelé lors de l'envoie de donné d'une ligne crée par le fichier
+         case 'mise_jour_ligne_file':
+            $ligne = filter_input(INPUT_GET, 'ligne');
+            $report = filter_input(INPUT_GET, 'report');
+            $quai = filter_input(INPUT_GET, 'quai');
+            $cariste = filter_input(INPUT_GET, 'cariste');
+            $debutCariste = filter_input(INPUT_GET, 'debCariste');
+            $finCariste = filter_input(INPUT_GET, 'finCariste');
+            $hAriv = filter_input(INPUT_GET, 'hariv');
+            $porte = filter_input(INPUT_GET, 'porte');
+            $chargeur = filter_input(INPUT_GET, 'chargeur');
+            $debutChargeur = filter_input(INPUT_GET, 'chargeurdeb');
+            $finChargeur = filter_input(INPUT_GET, 'chargeurfin');
+            $nbSuppChargeur = filter_input(INPUT_GET, 'nbsuppcharg');
+            $nbRaq = filter_input(INPUT_GET, 'nbraq');
+            $nbpalLeg = filter_input(INPUT_GET, 'nbpalleg');
+            $site = filter_input(INPUT_GET, 'site');
+            
+            mise_jour_ligne_file($ligne, $report,$quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site);
             break;
         //a appelé pour les page visuel
         case 'renvoyerTable':

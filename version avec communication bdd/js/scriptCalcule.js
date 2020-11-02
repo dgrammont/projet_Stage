@@ -1,6 +1,4 @@
-
-
-
+//envoyée les donné du fichier vers le tableau
 function upload(event) {
 
     event.preventDefault();
@@ -63,7 +61,6 @@ function upload(event) {
 
 
 // moyenne des chargement 57 palette par heure
-
 function diffTimeCharg() {
     var nomCharg = "nomChargeur";
     var chargDeb = "chargeurHdeb";
@@ -344,35 +341,12 @@ function voirVisuel() {
     document.location.href = "exportVisual.html";
 }
 
-//afficher tous le tableau toutes les 5 min
-function afficher_table() {
-    $.ajax({
-        url: "./php/controleur.php",
-        data: {
-            'commande': 'renvoyerTable'
-        },
-        dataType: 'json',
-        method: "GET",
-        success: function (donnees, status, xhr) {
-            //metre le text de la réponse ajax dans le champs div ayant pour id yes
-            //$("#yes").text(donnees);
-        },
-        error: function (xhr, status, error) {
-            console.log("param : " + JSON.stringify(xhr));
-            console.log("status : " + status);
-            console.log("error : " + error);
-        }
-    });
-    // recharge la page dns 5 min
-    setTimeout("reloadPage()", 300000);
-
-}
-
 //recharge la page    
 function reloadPage() {
     document.location.reload(true);
 }
 
+//le boutton file n'a pas besoin de toutes les données du tableau
 function bouttonEnvoyerFile() {
     var id = $(this).attr('id');
     var numero = id.substring(7);
@@ -382,19 +356,11 @@ function bouttonEnvoyerFile() {
     var time_Cariste_h_Deb_bdd = $('#caristeHdeb' + numero).val();
     var time_Cariste_h_Fin_bdd = $('#caristeHfin' + numero).val();
     var nom_Cariste_bdd = $('#nomCariste' + numero).val();
-    var nb_pal_Cariste_bdd = $('#nbPalCariste' + numero).val();
     var time_Chargeur_h_Deb_bdd = $('#chargeurHdeb' + numero).val();
     var time_Chargeur_h_Fin_bdd = $('#chargeurhfin' + numero).val();
     var nom_Chargeur_bdd = $('#nomChargeur' + numero).val();
     var nb_pal_Chargeur_bdd = $('#nbPalChargeur' + numero).val();
-    var expMag_bdd = $('#exp_Mag' + numero).val();
     var report_bdd = $('#report' + numero).val();
-    var dpt_bdd = $('#dpt' + numero).val();
-    var hrev_bdd = $('#hRev' + numero).val();
-    var transporteur_bdd = $('#transporteur' + numero).val();
-    var edi_bdd = $('#edi' + numero).val();
-    var destinataire_bdd = $('#destinataire' + numero).val();
-    var heurLiv_bdd = $('#hLiv' + numero).val();
     var quai_bdd = $('#quai' + numero).val();
     var hariv_bdd = $('#hArriv' + numero).val();
     var porte_bdd = $('#porte' + numero).val();
@@ -405,17 +371,9 @@ function bouttonEnvoyerFile() {
     $.ajax({
         url: "./php/controleur.php",
         data: {
-            'commande': 'mise_jour_ligne',
+            'commande': 'mise_jour_ligne_file',
             'ligne': numero,
-            'exp': expMag_bdd,
             'report': report_bdd,
-            'dpt': dpt_bdd,
-            'edi': edi_bdd,
-            'hRev': hrev_bdd,
-            'transporteur': transporteur_bdd,
-            'hliv': heurLiv_bdd,
-            'destinataire': destinataire_bdd,
-            'nbsupp': nb_pal_Cariste_bdd,
             'quai': quai_bdd,
             'cariste': nom_Cariste_bdd,
             'debCariste': time_Cariste_h_Deb_bdd,
@@ -446,6 +404,7 @@ function bouttonEnvoyerFile() {
     });
 }
 
+//le button uti a besoin de toutes les données du tableau
 function bouttonEnvoyerUti() {
     var id = $(this).attr('id');
     var numero = id.substring(7);
@@ -478,7 +437,7 @@ function bouttonEnvoyerUti() {
     $.ajax({
         url: "./php/controleur.php",
         data: {
-            'commande': 'mise_jour_ligne',
+            'commande': 'mise_jour_ligne_file_uti',
             'ligne': numero,
             'exp': expMag_bdd,
             'report': report_bdd,
@@ -518,11 +477,13 @@ function bouttonEnvoyerUti() {
 }
 
 $(document).ready(function () {
+    //envoyer du fichier
     $('#upload_csv').on('submit', upload);
     n = new Date();
     y = n.getFullYear();
     m = n.getMonth() + 1;
     d = n.getDate();
+    //date du jour
     document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
     $(document).on("click", "input[id^=envoyer]", bouttonEnvoyerFile);
     $(document).on("click", "input[id^=sendNew]", bouttonEnvoyerUti);
@@ -533,14 +494,3 @@ $(document).ready(function () {
     $(document).on('change', "input[id^=chargeurHfin]", diffTimeCharg);
     $(document).on('change', "input[id^=nbPalChargeur]", diffTimeCharg);
 });
-
-//$('#data-planning').dataTable({
-//    "initComplete": function (settings, json) {
-//        var api = this.api();
-//        $('#dataplaning tbody').on('click', '.position', function () {
-//            var row = $(this).closest('tr');
-//            var data = api.row(row).data().position;
-//            console.log(data);
-//        });
-//    }
-//});

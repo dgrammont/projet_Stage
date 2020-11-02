@@ -14,8 +14,6 @@ function visuel(event) {
         success: function (donnees, status, xhr) {
             $('#data-planning').DataTable({
                 dataType: 'json',
-//                    dom: 'Bfrtip',
-//                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
                 fixedHeader: false,
                 "lengthMenu": [[10, 15, 25, 50, 100, -1], [10, 15, 25, 50, 100, "Tous"]],
                 'iDisplayLength': 25,

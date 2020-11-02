@@ -1,69 +1,72 @@
 
 
+$(document).ready(function () {
+    visuel();
+n = new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+});
+ function visuel (event) {
 
-function upload(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "./php/controleur.php",
+            method: "GET",
+            data: {
+            'commande': 'renvoyerTable'
+            },
+            success: function (donnees, status, xhr) {
+                 $('#data-planning').DataTable({
+                    dataType: 'json',
+                     dom: 'Bfrtip',
+                     buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    fixedHeader: false,
+                    "lengthMenu": [[10, 15, 25, 50, 100, -1], [10, 15, 25, 50, 100, "Tous"]],
+                    'iDisplayLength': 25,
+                    columns: [
 
-    event.preventDefault();
-    $.ajax({
-        url: "./php/import.php",
-        method: "POST",
-        data: new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (jsonData)
-        {
-            $('#csv_file').val('');
+                        {data: "ligne"},
+                        {data: "expo_Mag"},
+                        {data: "report"},
+                        {data: "dpt"},
+                        {data: "edi"},
+                        {data: "hrev"},
+                        {data: "transporteur"},
+                        {data: "heure_Liv"},
+                        {data: "destinataires"},
+                        {data: "nb_Supp"},
+                        {data: "quai"},
+                        {data: "cariste"},
+                        {data: "destock_HD"},
+                        {data: "destock_HF"},
+                        {data: "h_Arriv"},
+                        {data: "porte"},
+                        {data: "chargeur"},
+                        {data: "charg_H_Deb"},
+                        {data: "charg_H_Fin"},
+                        {data: "nb_Supp_Charg"},
+                        {data: "nb_Raq"},
+                        {data: "nb_pal_leg"},
+                        {data: "site"}
+                    ]
 
-            $('#data-planning').DataTable({
-                data: jsonData,
-                dataType: 'json',
-//                    dom: 'Bfrtip',
-//                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-                fixedHeader: false,
-                "lengthMenu": [[10, 15, 25, 50, 100, -1], [10, 15, 25, 50, 100, "Tous"]],
-                'iDisplayLength': 25,
-                columns: [
-
-                    {data: "ligne"},
-                    {data: "expo_Mag"},
-                    {data: "report"},
-                    {data: "dpt"},
-                    {data: "edi"},
-                    {data: "hrev"},
-                    {data: "transporteur"},
-                    {data: "heure_Liv"},
-                    {data: "destinataires"},
-                    {data: "nb_Supp"},
-                    {data: "quai"},
-                    {data: "cariste"},
-                    {data: "destock_HD"},
-                    {data: "destock_HF"},
-                    {data: "h_Arriv"},
-                    {data: "porte"},
-                    {data: "chargeur"},
-                    {data: "charg_H_Deb"},
-                    {data: "charg_H_Fin"},
-                    {data: "nb_Supp_Charg"},
-                    {data: "nb_Raq"},
-                    {data: "nb_pal_leg"},
-                    {data: "site"},
-                    {data: "envoyer"}
-                ]
-
-            });
-
-
+                });
+            
+            },
+        error: function (xhr, status, error) {
+            console.log("param : " + JSON.stringify(xhr));
+            console.log("status : " + status);
+            console.log("error : " + error);
         }
+            
+  
     });
-    document.getElementById("ajoute_ligne").style.display = "block";
-    document.getElementById("del_Talbe").style.display = "block";
-    document.getElementById("visuel").style.display = "block";
 }
 
 
-// moyenne des chargement 57 palette par heure
-
+// moyenne des chargement 57 palette par heure 
 function diffTimeCharg() {
     var nomCharg = "nomChargeur";
     var chargDeb = "chargeurHdeb";
@@ -71,11 +74,11 @@ function diffTimeCharg() {
     var nbPalCharg = "nbPalChargeur";
 
     var nb = 1;
-
+    
 
 
     while (nb !== null) {
-
+        
         let nomcharg = nomCharg + nb;
         let charhdeb = chargDeb + nb;
         let charhfin = chargFin + nb;
@@ -213,7 +216,7 @@ function addLine() {
     var site_id = "site";
     site_id += nbLigne;
     //id du button envoyer
-    var envoyer_id = "sendNew";
+    var envoyer_id = "envoyerNew";
     envoyer_id += nbLigne;
     //heure de debut du cariste
     var time_Cariste_h_Deb = "caristeHdeb";
@@ -256,14 +259,14 @@ function addLine() {
     var raq = "<input type='number' id='" + nbraq_id + "' style='width: 80px'/>";
     var nbpalleg = "<input type='number' id='" + nbpalleg_id + "' style='width: 80px'/>";
     var site = "<input type='text' id='" + site_id + "'/>";
-    var nbPalCariste = "<input type='number' id='" + nb_pal_Cariste + "' style='width: 80px' />";
-    var nbPalCharg = "<input type='number' id='" + nb_pal_Chargeur + "' style='width: 80px' />";
+    var nbPalCariste = "<input type='number' id='" + nb_pal_Cariste + "' style='width: 80px' onchange='diffTimeCarist()'/>";
+    var nbPalCharg = "<input type='number' id='" + nb_pal_Chargeur + "' style='width: 80px' onchange='diffTimeCharg()'/>";
     var nomCariste = "<input type='text' id='" + nom_Cariste + "' />";
     var nomChargeur = "<input type='text' id='" + nom_Chargeur + "' />";
-    var timeDebCariste = "<input type='time' id='" + time_Cariste_h_Deb + "' />";
-    var timeFinCariste = "<input type='time' id='" + time_Cariste_h_Fin + "' />";
-    var timeDebChargeur = "<input type='time' id='" + time_Chargeur_h_Deb + "' />";
-    var timeFinChargeur = "<input type='time' id='" + time_Chargeur_h_Fin + "' />";
+    var timeDebCariste = "<input type='time' id='" + time_Cariste_h_Deb + "' onchange='diffTimeCarist()'/>";
+    var timeFinCariste = "<input type='time' id='" + time_Cariste_h_Fin + "' onchange='diffTimeCarist()'/>";
+    var timeDebChargeur = "<input type='time' id='" + time_Chargeur_h_Deb + "' onchange='diffTimeCharg()'/>";
+    var timeFinChargeur = "<input type='time' id='" + time_Chargeur_h_Fin + "' onchange='diffTimeCharg()'/>";
     t.row.add({
 
         ligne: line,
@@ -332,7 +335,6 @@ function deleteTable() {
                 console.log("error : " + error);
             }
         });
-     
     } else {
 
     }
@@ -341,8 +343,11 @@ function deleteTable() {
 
 //permet de voir le visuel pour la page qui permet d'envoyer la tableau dans le format voulu. 
 function voirVisuel() {
-    document.location.href = "exportVisual.html";
+    document.location.href = "http://localhost:8000/exportVisual.html";
 }
+
+//affiche la date du jour
+
 
 //afficher tous le tableau toutes les 5 min
 function afficher_table() {
@@ -362,7 +367,7 @@ function afficher_table() {
             console.log("status : " + status);
             console.log("error : " + error);
         }
-    });
+    });    
     // recharge la page dns 5 min
     setTimeout("reloadPage()", 300000);
 
@@ -373,64 +378,83 @@ function reloadPage() {
     document.location.reload(true);
 }
 
-function bouttonEnvoyerFile() {
+$(document).on("click", "input[id^=envoyer]", function () {
     var id = $(this).attr('id');
     var numero = id.substring(7);
     console.log("id :" + id);
     console.log("numero:" + numero);
-
-    var time_Cariste_h_Deb_bdd = $('#caristeHdeb' + numero).val();
-    var time_Cariste_h_Fin_bdd = $('#caristeHfin' + numero).val();
-    var nom_Cariste_bdd = $('#nomCariste' + numero).val();
-    var nb_pal_Cariste_bdd = $('#nbPalCariste' + numero).val();
-    var time_Chargeur_h_Deb_bdd = $('#chargeurHdeb' + numero).val();
-    var time_Chargeur_h_Fin_bdd = $('#chargeurhfin' + numero).val();
-    var nom_Chargeur_bdd = $('#nomChargeur' + numero).val();
-    var nb_pal_Chargeur_bdd = $('#nbPalChargeur' + numero).val();
-    var expMag_bdd = $('#exp_Mag' + numero).val();
-    var report_bdd = $('#report' + numero).val();
-    var dpt_bdd = $('#dpt' + numero).val();
-    var hrev_bdd = $('#hRev' + numero).val();
-    var transporteur_bdd = $('#transporteur' + numero).val();
-    var edi_bdd = $('#edi' + numero).val();
-    var destinataire_bdd = $('#destinataire' + numero).val();
-    var heurLiv_bdd = $('#hLiv' + numero).val();
-    var quai_bdd = $('#quai' + numero).val();
-    var hariv_bdd = $('#hArriv' + numero).val();
-    var porte_bdd = $('#porte' + numero).val();
-    var nbraq_bdd = $('#nbRaq' + numero).val();
-    var nbpalleg_bdd = $('#nbPalLeg' + numero).val();
-    var site_bdd = $('#site' + numero).val();
-
-    $.ajax({
+            
+           var time_Cariste_h_Deb_bdd =$('#time_Cariste_h_Deb'+numero).val();
+                      
+           var time_Cariste_h_Fin="caristeHfin"+numero;
+           var time_Cariste_h_Fin_bdd = document.getElementById(time_Cariste_h_Fin);
+           
+           var nom_Cariste="nomCariste"+numero;
+           var nom_Cariste_bdd = document.getElementById(nom_Cariste);
+           
+           var nb_pal_Cariste="nbPalCariste"+numero;
+           var nb_pal_Cariste_bdd = document.getElementById(nb_pal_Cariste);
+           
+           var time_Chargeur_h_Deb="chargeurHdeb"+numero;
+           var time_Chargeur_h_Deb_bdd = document.getElementById(time_Chargeur_h_Deb);
+           
+           var time_Chargeur_h_Fin="chargeurhfin"+numero;
+           var time_Chargeur_h_Fin_bdd = document.getElementById(time_Chargeur_h_Fin);
+           
+           var nom_Chargeur="nomChargeur"+numero;
+           var nom_Chargeur_bdd = document.getElementById(nom_Chargeur);
+           
+           var nb_pal_Chargeur="nbPalChargeur"+numero;
+           var nb_pal_Chargeur_bdd = document.getElementById(nb_pal_Chargeur);
+           
+           var expMag_id = "exp_Mag"+numero;
+           var expMag_bdd = document.getElementById(expMag_id);
+           
+           var report_id = "report"+numero;
+           var report_bdd = document.getElementById(report_id);
+           
+           var dpt_id = "dpt"+numero;
+           var dpt_bdd = document.getElementById(dpt_id);
+           
+           var hrev_id = "hRev"+numero;
+           var hrev_bdd = document.getElementById(hrev_id);
+           
+           var transporteur_id = "transporteur"+numero;
+           var transporteur_bdd = document.getElementById(transporteur_id);
+           
+           var edi_id = "edi"+numero;
+           var edi_bdd = document.getElementById(edi_id);
+           
+           var destinataire_id = "destinataire"+numero;
+           var destinataire_bdd = document.getElementById(destinataire_id);
+           
+           var heurLiv_id = "hLiv"+numero;
+           var heurLiv_bdd = document.getElementById(heurLiv_id);
+           
+           var quai_id = "quai"+numero;
+           var quai_bdd = document.getElementById(quai_id);
+           
+           var hariv_id = "hArriv"+numero;
+           var hariv_bdd = document.getElementById(hariv_id);
+           
+           var porte_id = "porte"+numero;
+           var porte_bdd = document.getElementById(porte_id);
+           
+           var nbraq_id = "nbRaq"+numero;
+           var nbraq_bdd = document.getElementById(nbraq_id);
+           
+           var nbpalleg_id = "nbPalLeg"+numero;
+           var nbpalleg_bdd = document.getElementById(nbpalleg_id);
+           
+           var site_id = "site"+numero;
+           var site_bdd = document.getElementById(site_id);                      
+           
+            $.ajax({
         url: "./php/controleur.php",
         data: {
-            'commande': 'mise_jour_ligne',
-            'ligne': numero,
-            'exp': expMag_bdd,
-            'report': report_bdd,
-            'dpt': dpt_bdd,
-            'edi': edi_bdd,
-            'hRev': hrev_bdd,
-            'transporteur': transporteur_bdd,
-            'hliv': heurLiv_bdd,
-            'destinataire': destinataire_bdd,
-            'nbsupp': nb_pal_Cariste_bdd,
-            'quai': quai_bdd,
-            'cariste': nom_Cariste_bdd,
-            'debCariste': time_Cariste_h_Deb_bdd,
-            'finCariste': time_Cariste_h_Fin_bdd,
-            'hariv': hariv_bdd,
-            'porte': porte_bdd,
-            'chargeur': nom_Chargeur_bdd,
-            'chargeurdeb': time_Chargeur_h_Deb_bdd,
-            'chargeurfin': time_Chargeur_h_Fin_bdd,
-            'nbsuppcharg': nb_pal_Chargeur_bdd,
-            'nbraq': nbraq_bdd,
-            'nbpalleg': nbpalleg_bdd,
-            'site': site_bdd
-
-
+            'commande': 'renvoyerTable',
+            'ligne' : numero,
+            
         },
         dataType: 'json',
         method: "GET",
@@ -444,119 +468,8 @@ function bouttonEnvoyerFile() {
             console.log("error : " + error);
         }
     });
-}
-
-function bouttonEnvoyerUti() {
-    var id = $(this).attr('id');
-    var numero = id.substring(10);
-    console.log("id :" + id);
-    console.log("numero:" + numero);
-
-    var time_Cariste_h_Deb_bdd = $('#caristeHdeb' + numero).val();
-
-    var time_Cariste_h_Fin_bdd = $('#caristeHfin' + numero).val();
-
-    var nom_Cariste_bdd = $('#nomCariste' + numero).val();
-
-    var nb_pal_Cariste_bdd = $('#nbPalCariste' + numero).val();
-
-    var time_Chargeur_h_Deb_bdd = $('#chargeurHdeb' + numero).val();
-
-    var time_Chargeur_h_Fin_bdd = $('#chargeurhfin' + numero).val();
-
-
-    var nom_Chargeur_bdd = $('#nomChargeur' + numero).val();
-
-    var nb_pal_Chargeur_bdd = $('#nbPalChargeur' + numero).val();
-
-    var expMag_bdd = $('#exp_Mag' + numero).val();
-
-    var report_bdd = $('#report' + numero).val();
-
-    var dpt_bdd = $('#dpt' + numero).val();
-
-    var hrev_bdd = $('#hRev' + numero).val();
-
-    var transporteur_bdd = $('#transporteur' + numero).val();
-
-    var edi_bdd = $('#edi' + numero).val();
-
-    var destinataire_bdd = $('#destinataire' + numero).val();
-
-    var heurLiv_bdd = $('#hLiv' + numero).val();
-
-    var quai_bdd = $('#quai' + numero).val();
-
-    var hariv_bdd = $('#hArriv' + numero).val();
-
-    var porte_bdd = $('#porte' + numero).val();
-
-    var nbraq_bdd = $('#nbRaq' + numero).val();
-
-    var nbpalleg_bdd = $('#nbPalLeg' + numero).val();
-
-    var site_bdd = $('#site' + numero).val();
-
-    $.ajax({
-        url: "./php/controleur.php",
-        data: {
-            'commande': 'mise_jour_ligne',
-            'ligne': numero,
-            'exp': expMag_bdd,
-            'report': report_bdd,
-            'dpt': dpt_bdd,
-            'edi': edi_bdd,
-            'hRev': hrev_bdd,
-            'transporteur': transporteur_bdd,
-            'hliv': heurLiv_bdd,
-            'destinataire': destinataire_bdd,
-            'nbsupp': nb_pal_Cariste_bdd,
-            'quai': quai_bdd,
-            'cariste': nom_Cariste_bdd,
-            'debCariste': time_Cariste_h_Deb_bdd,
-            'finCariste': time_Cariste_h_Fin_bdd,
-            'hariv': hariv_bdd,
-            'porte': porte_bdd,
-            'chargeur': nom_Chargeur_bdd,
-            'chargeurdeb': time_Chargeur_h_Deb_bdd,
-            'chargeurfin': time_Chargeur_h_Fin_bdd,
-            'nbsuppcharg': nb_pal_Chargeur_bdd,
-            'nbraq': nbraq_bdd,
-            'nbpalleg': nbpalleg_bdd,
-            'site': site_bdd
-
-
-        },
-        dataType: 'json',
-        method: "GET",
-        success: function (donnees, status, xhr) {
-            //metre le text de la réponse ajax dans le champs div ayant pour id yes
-            //$("#yes").text(donnees);
-        },
-        error: function (xhr, status, error) {
-            console.log("param : " + JSON.stringify(xhr));
-            console.log("status : " + status);
-            console.log("error : " + error);
-        }
-    });
-}
-
-$(document).ready(function () {
-    $('#upload_csv').on('submit', upload);
-    n = new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
-    $(document).on("click", "input[id^=envoyer]", bouttonEnvoyerFile);
-    $(document).on("click", "input[id^=sendNew]", bouttonEnvoyerUti);
-    $(document).on('change', "input[id^=nbPalCariste]", diffTimeCarist);
-    $(document).on('change', "input[id^=caristeHfin]", diffTimeCarist);
-    $(document).on('change', "input[id^=caristeHdeb]", diffTimeCarist);
-    $(document).on('change', "input[id^=chargeurHdeb]", diffTimeCharg);
-    $(document).on('change', "input[id^=chargeurHfin]", diffTimeCharg);
-    $(document).on('change', "input[id^=nbPalChargeur]", diffTimeCharg);
 });
+
 
 //$('#data-planning').dataTable({
 //    "initComplete": function (settings, json) {

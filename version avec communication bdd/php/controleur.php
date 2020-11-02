@@ -7,20 +7,12 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
     //récupération de la donnée 'commande'
     $commande = filter_input(INPUT_GET, 'commande');
     switch ($commande) {
-        case 'ajoutLigne':
-            //récupération du numéro de ligne
-            $numero = filter_input(INPUT_GET, 'ligne');
-            ajoutLigne($numero);
-            break;
+
         case 'delBdd':
             //suprimé la basse de donné
             delBdd(); 
             //recrée la basse
             createBdd();
-            break;
-        //permet de voir la base de donée
-        case 'voir_la_base':
-            voirBass();
             break;
         //a appelé lors de la création d'une nouvelle ligne par utilisateur
         case 'nouvelleLigne':
@@ -54,12 +46,6 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             $site = filter_input(INPUT_GET, 'site');
             
             mise_jour_ligne($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur, $hLiv, $destinataire, $nbSupp, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site);
-            break;
-        //a appelé a chaque minute pour le visuel des reader 
-        case 'demande_tableau':
-            break;
-        //a appelé lors de upload du fichier 
-        case 'premier_lancement':
             break;
         //a appelé pour les page visuel
         case 'renvoyerTable':

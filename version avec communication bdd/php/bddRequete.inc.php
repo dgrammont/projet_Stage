@@ -94,7 +94,7 @@ function mise_jour_ligne($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur
         $requete->bindParam(':chargeur', $chargeur);
         $requete->bindParam(':debutChargeur', $debutChargeur);
         $requete->bindParam(':finChargeur', $finChargeur);
-        $requete->bindParam(':nbSuppChargeur', $nbSuppChargeur);
+        $requete->bindParam(':nbSuppCharg', $nbSuppChargeur);
         $requete->bindParam(':nbRaq', $nbRaq);
         $requete->bindParam(':nbPalLeg', $nbpalLeg);
         $requete->bindParam(':site', $site);

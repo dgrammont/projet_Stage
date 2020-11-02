@@ -52,6 +52,7 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             $nbRaq = filter_input(INPUT_GET, 'nbraq');
             $nbpalLeg = filter_input(INPUT_GET, 'nbpalleg');
             $site = filter_input(INPUT_GET, 'site');
+            
             mise_jour_ligne($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur, $hLiv, $destinataire, $nbSupp, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site);
             break;
         //a appelé a chaque minute pour le visuel des reader 

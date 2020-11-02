@@ -1,15 +1,16 @@
 
 
-$(document).ready(function () {
-    visuel();
+$(document).ready(function () {  
 n = new Date();
     y = n.getFullYear();
     m = n.getMonth() + 1;
     d = n.getDate();
     document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+     visuel();
 });
- function visuel (event) {
 
+ function visuel (event) {
+  
         event.preventDefault();
         $.ajax({
             url: "./php/controleur.php",
@@ -17,7 +18,9 @@ n = new Date();
             data: {
             'commande': 'renvoyerTable'
             },
+            
             success: function (donnees, status, xhr) {
+             
                  $('#data-planning').DataTable({
                     dataType: 'json',
                      dom: 'Bfrtip',
@@ -53,7 +56,6 @@ n = new Date();
                     ]
 
                 });
-            
             },
         error: function (xhr, status, error) {
             console.log("param : " + JSON.stringify(xhr));
@@ -166,189 +168,6 @@ function diffTimeCarist() {
 }
 
 
-// permet de rajouter une ligne 
-function addLine() {
-
-    var t = $('#data-planning').DataTable();
-
-    var nbLigne = t.rows().count();
-    nbLigne += 1;
-    //id report
-    var nbLigneReport = "report";
-    nbLigneReport += nbLigne;
-    //id exp
-    var expMag_id = "exp_Mag";
-    expMag_id += nbLigne;
-    //id dpt
-    var dpt_id = "dpt";
-    dpt_id += nbLigne;
-    //id edi
-    var edi_id = "edi";
-    edi_id += nbLigne;
-    //id hrev
-    var hrev_id = "hRev";
-    hrev_id += nbLigne;
-    //id transporteur
-    var transporteur_id = "transporteur";
-    transporteur_id += nbLigne;
-    //id h livraison
-    var hliv_id = "hLiv";
-    hliv_id += nbLigne;
-    //id destinataire
-    var destinataire_id = "destinataire";
-    destinataire_id += nbLigne;
-    //id quai
-    var quai_id = "quai";
-    quai_id += nbLigne;
-    //h arrivé
-    var harriv_id = "hArriv";
-    harriv_id += nbLigne;
-    //id porte
-    var porte_id = "porte";
-    porte_id += nbLigne;
-    //id nombre de raq
-    var nbraq_id = "nbRaq";
-    nbraq_id += nbLigne;
-    //id nombre de palette legére
-    var nbpalleg_id = "nbPalLeg";
-    nbpalleg_id += nbLigne;
-    //id site 
-    var site_id = "site";
-    site_id += nbLigne;
-    //id du button envoyer
-    var envoyer_id = "envoyerNew";
-    envoyer_id += nbLigne;
-    //heure de debut du cariste
-    var time_Cariste_h_Deb = "caristeHdeb";
-    time_Cariste_h_Deb += nbLigne;
-    //heure de fin du cariste
-    var time_Cariste_h_Fin = "caristeHfin";
-    time_Cariste_h_Fin += nbLigne;
-    //nom du cariste
-    var nom_Cariste = "nomCariste";
-    nom_Cariste += nbLigne;
-    //nombre de palette du Cariste
-    var nb_pal_Cariste = "nbPalCariste";
-    nb_pal_Cariste += nbLigne;
-    //nombre de palette du chargeur
-    var nb_pal_Chargeur = "nbPalChargeur";
-    nb_pal_Chargeur += nbLigne;
-    //nom du chargeur
-    var nom_Chargeur = "nomChargeur";
-    nom_Chargeur += nbLigne;
-    //heure de debut du chargeur
-    var time_Chargeur_h_Deb = "chargeurHdeb";
-    time_Chargeur_h_Deb += nbLigne;
-    //heure de fin du chargeur
-    var time_Chargeur_h_Fin = "chargeurhfin";
-    time_Chargeur_h_Fin += nbLigne;
-
-    var line = "<input type='text' id='" + nbLigne + "' value='" + nbLigne + "' style='width: 50px';/>";
-    var expo_Mag = "<input type'text' id='" + expMag_id + "'/>";
-    var dpt = "<input type='number' id='" + dpt_id + "'/>";
-    var edi = "<input type='number' id='" + edi_id + "'/>";
-    var hrev = "<input type='time' id='" + hrev_id + "'/>";
-    var transporteur = "<input type='text' id='" + transporteur_id + "'/>";
-    var hLiv = "<input type='time'   id='" + hliv_id + "'/>";
-    var destinataire = "<input type='text' id='" + destinataire_id + "'/>";
-    var quai = "<input type='text' id='" + quai_id + "'/>";
-    var hariv = "<input type='time' id='" + harriv_id + "'/>";
-    var porte = "<input type='text' id='" + porte_id + "'/>";
-    var submit = "<input type='submit' id='" + envoyer_id + "'/>";
-    var report = "<input type='text' id='" + nbLigneReport + "' style='width: 40px; height: 10px'/>";
-    var raq = "<input type='number' id='" + nbraq_id + "' style='width: 80px'/>";
-    var nbpalleg = "<input type='number' id='" + nbpalleg_id + "' style='width: 80px'/>";
-    var site = "<input type='text' id='" + site_id + "'/>";
-    var nbPalCariste = "<input type='number' id='" + nb_pal_Cariste + "' style='width: 80px' onchange='diffTimeCarist()'/>";
-    var nbPalCharg = "<input type='number' id='" + nb_pal_Chargeur + "' style='width: 80px' onchange='diffTimeCharg()'/>";
-    var nomCariste = "<input type='text' id='" + nom_Cariste + "' />";
-    var nomChargeur = "<input type='text' id='" + nom_Chargeur + "' />";
-    var timeDebCariste = "<input type='time' id='" + time_Cariste_h_Deb + "' onchange='diffTimeCarist()'/>";
-    var timeFinCariste = "<input type='time' id='" + time_Cariste_h_Fin + "' onchange='diffTimeCarist()'/>";
-    var timeDebChargeur = "<input type='time' id='" + time_Chargeur_h_Deb + "' onchange='diffTimeCharg()'/>";
-    var timeFinChargeur = "<input type='time' id='" + time_Chargeur_h_Fin + "' onchange='diffTimeCharg()'/>";
-    t.row.add({
-
-        ligne: line,
-        expo_Mag: expo_Mag,
-        report: report,
-        dpt: dpt,
-        edi: edi,
-        hrev: hrev,
-        transporteur: transporteur,
-        heure_Liv: hLiv,
-        destinataires: destinataire,
-        nb_Supp: nbPalCariste,
-        quai: quai,
-        cariste: nomCariste,
-        destock_HD: timeDebCariste,
-        destock_HF: timeFinCariste,
-        h_Arriv: hariv,
-        porte: porte,
-        chargeur: nomChargeur,
-        charg_H_Deb: timeDebChargeur,
-        charg_H_Fin: timeFinChargeur,
-        nb_Supp_Charg: nbPalCharg,
-        nb_Raq: raq,
-        nb_pal_leg: nbpalleg,
-        site: site,
-        envoyer: submit
-
-    }).draw(false);
-
-    $.ajax({
-        url: "./php/controleur.php",
-        data: {
-            'commande': 'nouvelleLigne',
-            'ligne': nbLigne
-        },
-        dataType: 'json',
-        method: "GET",
-        success: function (donnees, status, xhr) {
-            //metre le text de la réponse ajax dans le champs div ayant pour id yes
-            $("#yes").text(donnees);
-        },
-        error: function (xhr, status, error) {
-            console.log("param : " + JSON.stringify(xhr));
-            console.log("status : " + status);
-            console.log("error : " + error);
-        }
-    });
-}
-
-// suprimé la table 
-function deleteTable() {
-    var answer = window.confirm("Vous allez surprimé le planning!");
-    if (answer === true) {
-        $.ajax({
-            url: "./php/controleur.php",
-            data: {
-                'commande': 'delBdd'
-            },
-            dataType: 'json',
-            method: "GET",
-            success: function (donnees, status, xhr) {
-            },
-            error: function (xhr, status, error) {
-                console.log("param : " + JSON.stringify(xhr));
-                console.log("status : " + status);
-                console.log("error : " + error);
-            }
-        });
-    } else {
-
-    }
-}
-
-
-//permet de voir le visuel pour la page qui permet d'envoyer la tableau dans le format voulu. 
-function voirVisuel() {
-    document.location.href = "http://localhost:8000/exportVisual.html";
-}
-
-//affiche la date du jour
-
-
 //afficher tous le tableau toutes les 5 min
 function afficher_table() {
     $.ajax({
@@ -378,106 +197,3 @@ function reloadPage() {
     document.location.reload(true);
 }
 
-$(document).on("click", "input[id^=envoyer]", function () {
-    var id = $(this).attr('id');
-    var numero = id.substring(7);
-    console.log("id :" + id);
-    console.log("numero:" + numero);
-            
-           var time_Cariste_h_Deb_bdd =$('#time_Cariste_h_Deb'+numero).val();
-                      
-           var time_Cariste_h_Fin="caristeHfin"+numero;
-           var time_Cariste_h_Fin_bdd = document.getElementById(time_Cariste_h_Fin);
-           
-           var nom_Cariste="nomCariste"+numero;
-           var nom_Cariste_bdd = document.getElementById(nom_Cariste);
-           
-           var nb_pal_Cariste="nbPalCariste"+numero;
-           var nb_pal_Cariste_bdd = document.getElementById(nb_pal_Cariste);
-           
-           var time_Chargeur_h_Deb="chargeurHdeb"+numero;
-           var time_Chargeur_h_Deb_bdd = document.getElementById(time_Chargeur_h_Deb);
-           
-           var time_Chargeur_h_Fin="chargeurhfin"+numero;
-           var time_Chargeur_h_Fin_bdd = document.getElementById(time_Chargeur_h_Fin);
-           
-           var nom_Chargeur="nomChargeur"+numero;
-           var nom_Chargeur_bdd = document.getElementById(nom_Chargeur);
-           
-           var nb_pal_Chargeur="nbPalChargeur"+numero;
-           var nb_pal_Chargeur_bdd = document.getElementById(nb_pal_Chargeur);
-           
-           var expMag_id = "exp_Mag"+numero;
-           var expMag_bdd = document.getElementById(expMag_id);
-           
-           var report_id = "report"+numero;
-           var report_bdd = document.getElementById(report_id);
-           
-           var dpt_id = "dpt"+numero;
-           var dpt_bdd = document.getElementById(dpt_id);
-           
-           var hrev_id = "hRev"+numero;
-           var hrev_bdd = document.getElementById(hrev_id);
-           
-           var transporteur_id = "transporteur"+numero;
-           var transporteur_bdd = document.getElementById(transporteur_id);
-           
-           var edi_id = "edi"+numero;
-           var edi_bdd = document.getElementById(edi_id);
-           
-           var destinataire_id = "destinataire"+numero;
-           var destinataire_bdd = document.getElementById(destinataire_id);
-           
-           var heurLiv_id = "hLiv"+numero;
-           var heurLiv_bdd = document.getElementById(heurLiv_id);
-           
-           var quai_id = "quai"+numero;
-           var quai_bdd = document.getElementById(quai_id);
-           
-           var hariv_id = "hArriv"+numero;
-           var hariv_bdd = document.getElementById(hariv_id);
-           
-           var porte_id = "porte"+numero;
-           var porte_bdd = document.getElementById(porte_id);
-           
-           var nbraq_id = "nbRaq"+numero;
-           var nbraq_bdd = document.getElementById(nbraq_id);
-           
-           var nbpalleg_id = "nbPalLeg"+numero;
-           var nbpalleg_bdd = document.getElementById(nbpalleg_id);
-           
-           var site_id = "site"+numero;
-           var site_bdd = document.getElementById(site_id);                      
-           
-            $.ajax({
-        url: "./php/controleur.php",
-        data: {
-            'commande': 'renvoyerTable',
-            'ligne' : numero,
-            
-        },
-        dataType: 'json',
-        method: "GET",
-        success: function (donnees, status, xhr) {
-            //metre le text de la réponse ajax dans le champs div ayant pour id yes
-            //$("#yes").text(donnees);
-        },
-        error: function (xhr, status, error) {
-            console.log("param : " + JSON.stringify(xhr));
-            console.log("status : " + status);
-            console.log("error : " + error);
-        }
-    });
-});
-
-
-//$('#data-planning').dataTable({
-//    "initComplete": function (settings, json) {
-//        var api = this.api();
-//        $('#dataplaning tbody').on('click', '.position', function () {
-//            var row = $(this).closest('tr');
-//            var data = api.row(row).data().position;
-//            console.log(data);
-//        });
-//    }
-//});

@@ -448,53 +448,31 @@ function bouttonEnvoyerFile() {
 
 function bouttonEnvoyerUti() {
     var id = $(this).attr('id');
-    var numero = id.substring(10);
+    var numero = id.substring(7);
     console.log("id :" + id);
     console.log("numero:" + numero);
 
     var time_Cariste_h_Deb_bdd = $('#caristeHdeb' + numero).val();
-
     var time_Cariste_h_Fin_bdd = $('#caristeHfin' + numero).val();
-
     var nom_Cariste_bdd = $('#nomCariste' + numero).val();
-
     var nb_pal_Cariste_bdd = $('#nbPalCariste' + numero).val();
-
     var time_Chargeur_h_Deb_bdd = $('#chargeurHdeb' + numero).val();
-
     var time_Chargeur_h_Fin_bdd = $('#chargeurhfin' + numero).val();
-
-
     var nom_Chargeur_bdd = $('#nomChargeur' + numero).val();
-
     var nb_pal_Chargeur_bdd = $('#nbPalChargeur' + numero).val();
-
     var expMag_bdd = $('#exp_Mag' + numero).val();
-
     var report_bdd = $('#report' + numero).val();
-
     var dpt_bdd = $('#dpt' + numero).val();
-
     var hrev_bdd = $('#hRev' + numero).val();
-
     var transporteur_bdd = $('#transporteur' + numero).val();
-
     var edi_bdd = $('#edi' + numero).val();
-
     var destinataire_bdd = $('#destinataire' + numero).val();
-
     var heurLiv_bdd = $('#hLiv' + numero).val();
-
     var quai_bdd = $('#quai' + numero).val();
-
     var hariv_bdd = $('#hArriv' + numero).val();
-
     var porte_bdd = $('#porte' + numero).val();
-
     var nbraq_bdd = $('#nbRaq' + numero).val();
-
     var nbpalleg_bdd = $('#nbPalLeg' + numero).val();
-
     var site_bdd = $('#site' + numero).val();
 
     $.ajax({
@@ -525,13 +503,11 @@ function bouttonEnvoyerUti() {
             'nbpalleg': nbpalleg_bdd,
             'site': site_bdd
 
-
         },
         dataType: 'json',
         method: "GET",
         success: function (donnees, status, xhr) {
-            //metre le text de la réponse ajax dans le champs div ayant pour id yes
-            //$("#yes").text(donnees);
+       
         },
         error: function (xhr, status, error) {
             console.log("param : " + JSON.stringify(xhr));

@@ -60,6 +60,43 @@ function visuel(event) {
    
 }
 
+//recharge la page    
+function reloadPage() {
+    document.location.reload(true);
+}
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = 0;
+        }
+        
+    }, 1000);
+}
+
+$(document).ready(function () {
+    n = new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+    setTimeout("reloadPage()", 304000);
+    var fiveMinutes = 60 * 5,
+    display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+    visuel();   
+   
+});
+
 // moyenne des chargement 57 palette par heure 
 function diffTimeCharg() {
     var nomCharg = "nomChargeur";
@@ -158,70 +195,6 @@ function diffTimeCarist() {
         }
     }
 }
-
-
-// permet de rajouter une ligne 
-
-//afficher tous le tableau toutes les 5 min
-function afficher_table() {
-    $.ajax({
-        url: "./php/controleur.php",
-        data: {
-            'commande': 'renvoyerTable'
-        },
-        dataType: 'json',
-        method: "GET",
-        success: function (donnees, status, xhr) {
-            //metre le text de la réponse ajax dans le champs div ayant pour id yes
-            //$("#yes").text(donnees);
-        },
-        error: function (xhr, status, error) {
-            console.log("param : " + JSON.stringify(xhr));
-            console.log("status : " + status);
-            console.log("error : " + error);
-        }
-    });
-    // recharge la page dns 5 min
-    setTimeout("reloadPage()", 300000);
-
-}
-
-//recharge la page    
-function reloadPage() {
-    document.location.reload(true);
-}
-
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            timer = 0;
-        }
-        
-    }, 1000);
-}
-
-$(document).ready(function () {
-    n = new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
-    setTimeout("reloadPage()", 304000);
-    var fiveMinutes = 60 * 5,
-    display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-    visuel();   
-   
-});
 
 //function resolveAfter2Seconds() {
 //  return new Promise(resolve => {

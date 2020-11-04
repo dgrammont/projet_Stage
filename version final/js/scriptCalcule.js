@@ -17,8 +17,8 @@ function upload(event) {
                 data: jsonData,
                 dataType: 'json',
                 fixedHeader: false,
-                "lengthMenu": [[5 ,10, 15, 25, 50, 100, -1], [5, 10, 15, 25, 50, 100, "Tous"]],
-                'iDisplayLength': 15,
+                "lengthMenu": [[5, 10, 15, 25, 50, 100, -1], [5, 10, 15, 25, 50, 100, "Tous"]],
+                'iDisplayLength': -1,
                 columns: [
 
                     {data: "ligne"},
@@ -43,7 +43,7 @@ function upload(event) {
                     {data: "nb_Supp_Charg"},
                     {data: "nb_Raq"},
                     {data: "nb_pal_leg"},
-                    {data: "site"},
+                    {data: "observation"},
                     {data: "envoyer"}
                 ]
 
@@ -52,110 +52,147 @@ function upload(event) {
 
         }
     });
-    document.getElementById("ajoute_ligne").style.display = "block";
-    document.getElementById("del_Talbe").style.display = "block";
-    document.getElementById("visuel").style.display = "block";
+    $("#ajoute_ligne").css("display", "block");
+    $("#nbSuppTotal").css("display", "block");
+    $("#visuel").css("display", "block");
+    $("#slash").css("display", "block");
+    $("#nbSupp").css("display", "block");
+    $("#nbSuppRestant").css("display", "block");
+    
+    $("#nbSuppchargRestant").css("display", "block");
+    $("#nbSuppChargTotal").css("display", "block");
+    $("#nbSuppcharg").css("display", "block");
+    $("#slashcharg").css("display", "block");
+       
+    setTimeout("changerCouleur()", 4000);
+    setTimeout("nombreDeSupp()", 4000);
 }
 
 
-// moyenne des chargement 57 palette par heure
 function diffTimeCharg() {
-    var nomCharg = "nomChargeur";
-    var chargDeb = "chargeurHdeb";
-    var chargFin = "chargeurhfin";
-    var nbPalCharg = "nbPalChargeur";
 
-    var nb = 1;
+    var id = $(this).attr('id');
+    var numero = id.substring(12);
+    console.log("id  :" + id);
+    console.log("numero:" + numero);
 
+    var t = $('#data-planning').DataTable();
 
+    var nomChargeur = "nomChargeur";
 
-    while (nb !== null) {
-
-        let nomcharg = nomCharg + nb;
-        let charhdeb = chargDeb + nb;
-        let charhfin = chargFin + nb;
-        let nbpalcharg = nbPalCharg + nb;
-
-        var time = document.getElementById(charhdeb).value;
-        var time2 = document.getElementById(charhfin).value;
-        var pmoyChargement = 57 / 60;
-        var nbPallete = document.getElementById(nbpalcharg).value;
-        var hours = time.split(":")[0];
-        var minutes = time.split(":")[1];
-        var hours2 = time2.split(":")[0];
-        var minutes2 = time2.split(":")[1];
-        hours = hours < 10 ? +hours : hours;
-        hours2 = hours2 < 10 ? +hours2 : hours2;
-        var hDiff = hours2 - hours;
-        var mDiff = minutes2 - minutes;
+    var nb = numero;
 
 
-        var tempEnMinutes = (hDiff * 60) + mDiff;
-        var production = nbPallete / tempEnMinutes;
-        if (nbpalcharg !== null) {
-            if (production < pmoyChargement) {
-                document.getElementById(nomcharg).style.backgroundColor = "#FF0000";
-            } else {
-                if (production === pmoyChargement) {
-                    document.getElementById(nomcharg).style.backgroundColor = "#FFFFFF";
-                } else {
-                    document.getElementById(nomcharg).style.backgroundColor = "#00FF00";
-                }
-            }
-            nb = nb + 1;
-        }
+
+    let nomchargeur = nomChargeur + nb;
+    document.getElementById(nomchargeur).style.backgroundColor = "#00FF00";
+    
+    
+    var memoire = 0;
+    var forceint = 0;
+    var deja_la = 0;
+
+    var nbSupp = "nbPalChargeur";
+    let nbsupp = nbSupp + nb;
+    var suppUti = "nbPalChargeurNew";
+    let suppUtilisateur = suppUti +nb;
+    
+    var acutelle = document.getElementById("nbSuppcharg").innerText;
+    
+    if (document.getElementById(nbsupp) !== null){  
+    deja_la = parseFloat(acutelle, 10);
+    if (deja_la > 1) {
+        memoire += deja_la;
+        var test = document.getElementById(nbsupp).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSuppcharg").innerHTML = memoire;
+
+    } else {
+        var test = document.getElementById(nbsupp).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSuppcharg").innerHTML = memoire;
+    }
+    }else{
+        deja_la = parseFloat(acutelle, 10);
+    if (deja_la > 1) {
+        memoire += deja_la;
+        var test = document.getElementById(suppUtilisateur).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSuppcharg").innerHTML = memoire;
+
+    } else {
+        var test = document.getElementById(suppUtilisateur).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSuppcharg").innerHTML = memoire;
+    }
     }
 }
 
 
-// moyenne des cariste  25 pallete par heure 
 function diffTimeCarist() {
+     
+    var id = $(this).attr('id');
+    var numero = id.substring(11);
+    console.log("id  :" + id);
+    console.log("numero:" + numero);
 
     var nomCariste = "nomCariste";
-    var carsiteDeb = "caristeHdeb";
-    var carsiteFin = "caristeHfin";
-    var nbPalCarsite = "nbPalCariste";
 
-    var nb = 1;
+    var nb = numero;
 
-    while (nb !== null) {
-
-        let nomcarist = nomCariste + nb;
-        let caristhdeb = carsiteDeb + nb;
-        let carsitfin = carsiteFin + nb;
-        let nbpalcarist = nbPalCarsite + nb;
+    let nomcarist = nomCariste + nb;
+    document.getElementById(nomcarist).style.backgroundColor = "#00FF00";   
 
 
-        var time = document.getElementById(caristhdeb).value;
-        var time2 = document.getElementById(carsitfin).value;
-        var pmoyCariste = 25 / 60;
-        var nbPallete = document.getElementById(nbpalcarist).value;
-        var hours = time.split(":")[0];
-        var minutes = time.split(":")[1];
-        var hours2 = time2.split(":")[0];
-        var minutes2 = time2.split(":")[1];
-        hours = hours < 10 ? +hours : hours;
-        hours2 = hours2 < 10 ? +hours2 : hours2;
-        var hDiff = hours2 - hours;
-        var mDiff = minutes2 - minutes;
 
+    var memoire = 0;
+    var forceint = 0;
+    var deja_la = 0;
 
-        var tempEnMinutes = (hDiff * 60) + mDiff;
-        var production = nbPallete / tempEnMinutes;
-        if (nbpalcarist !== null) {
-            if (production < pmoyCariste) {
-                document.getElementById(nomcarist).style.backgroundColor = "#FF0000";
-            } else {
-                if (production === pmoyCariste) {
-                    document.getElementById(nomcarist).style.backgroundColor = "#FFFFFF";
-                } else {
-                    document.getElementById(nomcarist).style.backgroundColor = "#00FF00";
-                }
-            }
-            nb = nb + 1;
-        }
+    var nbSupp = "nbPalCariste";
+    let nbsupp = nbSupp + nb;
+    var suppUti = "nbPalCaristeNew";
+    let suppUtilisateur = suppUti +nb;
+    
+    var acutelle = document.getElementById("nbSupp").innerText;
+    
+    if (document.getElementById(nbsupp) !== null){  
+    deja_la = parseFloat(acutelle, 10);
+    if (deja_la > 1) {
+        memoire += deja_la;
+        var test = document.getElementById(nbsupp).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSupp").innerHTML = memoire;
+
+    } else {
+        var test = document.getElementById(nbsupp).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSupp").innerHTML = memoire;
+    }
+    }else{
+        deja_la = parseFloat(acutelle, 10);
+    if (deja_la > 1) {
+        memoire += deja_la;
+        var test = document.getElementById(suppUtilisateur).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSupp").innerHTML = memoire;
+
+    } else {
+        var test = document.getElementById(suppUtilisateur).value;
+        forceint = parseFloat(test, 10);
+        memoire += forceint/2;
+        document.getElementById("nbSupp").innerHTML = memoire;
+    }
     }
 }
+
 
 
 // permet de rajouter une ligne 
@@ -220,10 +257,10 @@ function addLine() {
     var nom_Cariste = "nomCariste";
     nom_Cariste += nbLigne;
     //nombre de palette du Cariste
-    var nb_pal_Cariste = "nbPalCariste";
+    var nb_pal_Cariste = "nbPalCaristeNew";
     nb_pal_Cariste += nbLigne;
     //nombre de palette du chargeur
-    var nb_pal_Chargeur = "nbPalChargeur";
+    var nb_pal_Chargeur = "nbPalChargeurNew";
     nb_pal_Chargeur += nbLigne;
     //nom du chargeur
     var nom_Chargeur = "nomChargeur";
@@ -235,26 +272,27 @@ function addLine() {
     var time_Chargeur_h_Fin = "chargeurhfin";
     time_Chargeur_h_Fin += nbLigne;
 
-    var line = "<input type='text' id='" + nbLigne + "' value='" + nbLigne + "' style='width: 50px';/>";
-    var expo_Mag = "<input type'text' id='" + expMag_id + "'/>";
-    var dpt = "<input type='number' id='" + dpt_id + "'/>";
-    var edi = "<input type='number' id='" + edi_id + "'/>";
+    //  var line = "<input type='text' id='" + nbLigne + "' value='" + nbLigne + "' style='width: 40px';/>";
+    var line = "<span id='" + nbLigne + "'> " + nbLigne + "</span>";
+    var expo_Mag = "<input type'text' id='" + expMag_id + "' style='width: 80px; height: 10px'/>";
+    var dpt = "<input type='number' id='" + dpt_id + "'style='width: 80px; height: 10px'/>";
+    var edi = "<input type='number' id='" + edi_id + "'style='width: 80px; height: 10px'/>";
     var hrev = "<input type='time' id='" + hrev_id + "'/>";
-    var transporteur = "<input type='text' id='" + transporteur_id + "'/>";
+    var transporteur = "<input type='text' id='" + transporteur_id + "'style='width: 80px; height: 10px'/>";
     var hLiv = "<input type='time'   id='" + hliv_id + "'/>";
     var destinataire = "<input type='text' id='" + destinataire_id + "'/>";
-    var quai = "<input type='text' id='" + quai_id + "'/>";
+    var quai = "<input type='text' id='" + quai_id + "'style='width: 60px; height: 10px'/>";
     var hariv = "<input type='time' id='" + harriv_id + "'/>";
-    var porte = "<input type='text' id='" + porte_id + "'/>";
+    var porte = "<input type='text' id='" + porte_id + "'style='width: 50px; height: 10px'/>";
     var submit = "<input type='submit' id='" + envoyer_id + "'/>";
     var report = "<input type='text' id='" + nbLigneReport + "' style='width: 40px; height: 10px'/>";
     var raq = "<input type='number' id='" + nbraq_id + "' style='width: 80px'/>";
     var nbpalleg = "<input type='number' id='" + nbpalleg_id + "' style='width: 80px'/>";
-    var site = "<input type='text' id='" + site_id + "'/>";
+    var site = "<input type='text' id='" + site_id + "'style='width: 80px; height: 10px'/>";
     var nbPalCariste = "<input type='number' id='" + nb_pal_Cariste + "' style='width: 80px' />";
-    var nbPalCharg = "<input type='number' id='" + nb_pal_Chargeur + "' style='width: 80px' />";
-    var nomCariste = "<input type='text' id='" + nom_Cariste + "' />";
-    var nomChargeur = "<input type='text' id='" + nom_Chargeur + "' />";
+    var nbPalCharg = "<input type='number' id='" + nb_pal_Chargeur + "' style='width: 80px;' />";
+    var nomCariste = "<input type='text' id='" + nom_Cariste + "' style='width: 80px; background-color: rgb(255, 0, 0);'/>";
+    var nomChargeur = "<input type='text' id='" + nom_Chargeur + "' style='width: 80px; background-color: rgb(255, 0, 0);'/>";
     var timeDebCariste = "<input type='time' id='" + time_Cariste_h_Deb + "' />";
     var timeFinCariste = "<input type='time' id='" + time_Cariste_h_Fin + "' />";
     var timeDebChargeur = "<input type='time' id='" + time_Chargeur_h_Deb + "' />";
@@ -283,7 +321,7 @@ function addLine() {
         nb_Supp_Charg: nbPalCharg,
         nb_Raq: raq,
         nb_pal_leg: nbpalleg,
-        site: site,
+        observation: site,
         envoyer: submit
 
     }).draw(false);
@@ -306,30 +344,17 @@ function addLine() {
             console.log("error : " + error);
         }
     });
+    
 }
 
 // suprimé la table 
 function deleteTable() {
     var answer = window.confirm("Vous allez surprimé le planning!");
     if (answer === true) {
-        $.ajax({
-            url: "./php/controleur.php",
-            data: {
-                'commande': 'delBdd'
-            },
-            dataType: 'json',
-            method: "GET",
-            success: function (donnees, status, xhr) {
-            },
-            error: function (xhr, status, error) {
-                console.log("param : " + JSON.stringify(xhr));
-                console.log("status : " + status);
-                console.log("error : " + error);
-            }
-        });
-     
-    } else {
+        $('#upload_csv').on('submit', upload);
 
+    } else {
+        
     }
 }
 
@@ -337,11 +362,6 @@ function deleteTable() {
 //permet de voir le visuel pour la page qui permet d'envoyer la tableau dans le format voulu. 
 function voirVisuel() {
     document.location.href = "exportVisual.html";
-}
-
-//recharge la page    
-function reloadPage() {
-    document.location.reload(true);
 }
 
 //le boutton file n'a pas besoin de toutes les données du tableau
@@ -406,17 +426,17 @@ function bouttonEnvoyerFile() {
 function bouttonEnvoyerUti() {
     var id = $(this).attr('id');
     var numero = id.substring(7);
-    console.log("id :" + id);
+    console.log("id  :" + id);
     console.log("numero:" + numero);
 
     var time_Cariste_h_Deb_bdd = $('#caristeHdeb' + numero).val();
     var time_Cariste_h_Fin_bdd = $('#caristeHfin' + numero).val();
     var nom_Cariste_bdd = $('#nomCariste' + numero).val();
-    var nb_pal_Cariste_bdd = $('#nbPalCariste' + numero).val();
+    var nb_pal_Cariste_bdd = $('#nbPalCaristeNew' + numero).val();
     var time_Chargeur_h_Deb_bdd = $('#chargeurHdeb' + numero).val();
     var time_Chargeur_h_Fin_bdd = $('#chargeurhfin' + numero).val();
     var nom_Chargeur_bdd = $('#nomChargeur' + numero).val();
-    var nb_pal_Chargeur_bdd = $('#nbPalChargeur' + numero).val();
+    var nb_pal_Chargeur_bdd = $('#nbPalChargeurNew' + numero).val();
     var expMag_bdd = $('#exp_Mag' + numero).val();
     var report_bdd = $('#report' + numero).val();
     var dpt_bdd = $('#dpt' + numero).val();
@@ -464,7 +484,7 @@ function bouttonEnvoyerUti() {
         dataType: 'json',
         method: "GET",
         success: function (donnees, status, xhr) {
-       
+
         },
         error: function (xhr, status, error) {
             console.log("param : " + JSON.stringify(xhr));
@@ -474,23 +494,99 @@ function bouttonEnvoyerUti() {
     });
 }
 
+function changerCouleur() {
 
+    var t = $('#data-planning').DataTable();
+    var nbLigne = t.rows().count();
+
+
+
+    var nomCariste = "nomCariste";
+    var nomChargeur = "nomChargeur";
+
+
+    var nb = 1;
+
+
+    while (nb <= nbLigne) {
+        let nomcarist = nomCariste + nb;
+        let nomcharg = nomChargeur + nb;
+
+
+
+        document.getElementById(nomcarist).style.backgroundColor = "#FF0000";
+        document.getElementById(nomcharg).style.backgroundColor = "#FF0000";
+        nb++;
+    }
+
+}
+
+function nombreDeSupp() {
+    var t = $('#data-planning').DataTable();
+    var nbLigne = t.rows().count();
+    var memoire = 0;
+    var forceint;
+    var nb = 1;
+
+    var nbSupp = "nbPalCariste";
+    while (nb <= nbLigne) {
+        let nbsupp = nbSupp + nb;
+
+        var test = document.getElementById(nbsupp).value;
+        forceint = parseInt(test, 10);
+        nb++;
+        memoire += forceint;
+    }
+    document.getElementById("nbSuppTotal").innerHTML = memoire;
+    document.getElementById("nbSuppChargTotal").innerHTML = memoire;
+    
+}
+
+function ajouterSupp(){
+    
+    var id = $(this).attr('id');
+    var numero = id.substring(15);
+    console.log("id  :" + id);
+    console.log("numero:" + numero);
+    
+    var nombreDeSupport = "nbPalCaristeNew";
+    let nbsupp = nombreDeSupport + numero;
+    
+    var acutelle = document.getElementById("nbSuppTotal").innerText;
+    var actuelleEnInt = parseInt(acutelle , 10);
+    var forceint = parseInt(document.getElementById(nbsupp).value , 10);
+    
+    if(forceint !== universelle){
+        actuelleEnInt = actuelleEnInt - universelle;
+        actuelleEnInt = actuelleEnInt + forceint ;
+        document.getElementById("nbSuppTotal").innerText = actuelleEnInt;
+        document.getElementById("nbSuppChargTotal").innerText = actuelleEnInt;
+        
+    }else{
+        actuelleEnInt = actuelleEnInt + forceint;
+        document.getElementById("nbSuppTotal").innerText = actuelleEnInt;
+        document.getElementById("nbSuppChargTotal").innerText = actuelleEnInt;
+    }
+     universelle = forceint ;
+     
+}
 
 $(document).ready(function () {
     //envoyer du fichier
-    $('#upload_csv').on('submit', upload);
+    // $('#upload_csv').on('submit', upload);
     n = new Date();
     y = n.getFullYear();
     m = n.getMonth() + 1;
     d = n.getDate();
+    universelle = 0;
     //date du jour
     document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
     $(document).on("click", "input[id^=envoyer]", bouttonEnvoyerFile);
     $(document).on("click", "input[id^=sendNew]", bouttonEnvoyerUti);
-    $(document).on('change', "input[id^=nbPalCariste]", diffTimeCarist);
+    $(document).on("click", "input[id^=upload]", deleteTable);
     $(document).on('change', "input[id^=caristeHfin]", diffTimeCarist);
-    $(document).on('change', "input[id^=caristeHdeb]", diffTimeCarist);
-    $(document).on('change', "input[id^=chargeurHdeb]", diffTimeCharg);
-    $(document).on('change', "input[id^=chargeurHfin]", diffTimeCharg);
-    $(document).on('change', "input[id^=nbPalChargeur]", diffTimeCharg);
+    $(document).on('change', "input[id^=chargeurhfin]", diffTimeCharg);
+    $(document).on('change', "input[id^=nbPalCaristeNew]",ajouterSupp);
+
+
 });

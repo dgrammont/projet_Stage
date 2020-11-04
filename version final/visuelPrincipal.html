@@ -53,8 +53,17 @@
             <div class="table-responsive">
 
                 <table class="table table-striped table-bordered" id="data-planning">
-                    <input type="button" value="ajouté ligne" id="ajoute_ligne" onclick="addLine()" style="display: none" >
-                    <input type="button" value="delte Talbe"  id="del_Talbe" onclick="deleteTable()" style="display: none">
+                    <input type="button" value="ajouter ligne" id="ajoute_ligne" onclick="addLine()" style="display: none" >
+                    <span id="nbSuppRestant" style="display: none; position: absolute; left: 41.5%; top: 21%">Nombre de supp destockés : </span>
+                    <span id="nbSuppTotal" style="display: none; position: absolute; left: 53%; top: 21%"></span>
+                    <span id="nbSupp" style="display: none; position: absolute; left: 51%; top: 21%"></span>
+                    <span id="slash" style="display: none; position: absolute; left: 52.5%; top: 21%">/</span>
+                    
+                    <span id="nbSuppchargRestant" style="display: none; position: absolute; left: 41.5%; top: 23%">Nombre de supp chargés : </span>
+                    <span id="nbSuppChargTotal" style="display: none; position: absolute; left: 53%; top: 23%"></span>
+                    <span id="nbSuppcharg" style="display: none; position: absolute; left: 51%; top: 23%"></span>
+                    <span id="slashcharg" style="display: none; position: absolute; left: 52.5%; top: 23%">/</span>
+
                     <input type="button" value="Voir le visuel"  id="visuel" onclick="voirVisuel()" style="display: none">
                     <thead>
                         <tr>
@@ -67,20 +76,32 @@
                             <th>Trasporteur</th>
                             <th>H_Liv</th>
                             <th>Destinataire</th>
-                            <th>nb_supp</th>
+                            <th>nb
+                                supp</th>
                             <th>Quai</th>
                             <th>Cariste</th>
-                            <th>Destock_H_Deb</th>
-                            <th>Destock_H_Fin</th>
+                            <th>Destock
+                                H
+                                Deb</th>
+                            <th>Destock
+                                H
+                                Fin</th>
                             <th>H_Arriv</th>
                             <th>Porte</th>
                             <th>chargeur</th>
-                            <th>Charg_h_Deb</th>
-                            <th>Charg_h_Fin</th>
-                            <th>Nb_supp_Chargées</th>
-                            <th>Nb_RAQ</th>
-                            <th>Nb_Pal_legères</th>
-                            <th>site</th>
+                            <th>Charg
+                                h
+                                Deb</th>
+                            <th>Charg
+                                h
+                                Fin</th>
+                            <th>Nbsupp
+                                 Chargées</th>
+                            <th>Nb RAQ</th>
+                            <th>Nb
+                                Pal
+                                legères</th>
+                            <th>observation</th>
                             <th>enoyer</th>
                         </tr>
                     </thead>

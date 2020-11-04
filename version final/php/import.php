@@ -89,19 +89,19 @@ if (move_uploaded_file($_FILES['csv_file']['tmp_name'], $uploadfile)) { // uploa
                     'destinataires' => "<span id='$destinataire_id'>" . utf8_encode($row[11]) . "</span>",
                     'heure_Liv' => "<span id='$heurLiv_id'>" . utf8_encode($row[13]) . "</span>",
                     'nb_Supp' => "<input type='number' id='$destock_nb_pal' style='width: 80px; height: 10px' value='$row[14]' />",
-                    'quai' => "<input type='text' id='$quai_id'/>",
-                    'cariste' => "<input type='text' id='$destock_nom_Cariste'/>",
+                    'quai' => "<input type='text' id='$quai_id' style='width: 60px; height: 10px'/>",
+                    'cariste' => "<input type='text' id='$destock_nom_Cariste' style='width: 80px '/>",
                     'destock_HD' => "<input type='time' id='$destock_deb'/>",
                     'destock_HF' => "<input type='time' id='$destock_fin' />",
                     'h_Arriv' => "<input type='time' id='$hariv_id'/>",
-                    'porte' => "<input type='text' id='$port_id'/>",
-                    'chargeur' => "<input type='text' id='$charg_nomChargeur'/>",
+                    'porte' => "<input type='text' id='$port_id' style='width: 50px; height: 10px'/>",
+                    'chargeur' => "<input type='text' id='$charg_nomChargeur' style='width: 80px'/>",
                     'charg_H_Deb' => "<input type='time' id='$charg_deb' />",
                     'charg_H_Fin' => "<input type='time' id='$charg_fin' />",
                     'nb_Supp_Charg' => "<input type='number' id='$charg_nb_pal' style='width: 80px' />",
                     'nb_Raq' => "<input type='number' id='$nbraq_id' style='width: 80px'/>",
                     'nb_pal_leg' => "<input type='number' id='$nbpalleg_id' style='width: 80px'/>",
-                    'site' => "<input type='text' id='$site_id'/>",
+                    'observation' => "<input type='text' id='$site_id' style='width: 80px; height: 10px'/>",
                     'envoyer' => "<input type='submit' id='$envoyer_id'/>"
                 ));
              
@@ -159,7 +159,7 @@ if (move_uploaded_file($_FILES['csv_file']['tmp_name'], $uploadfile)) { // uploa
         'nb_Supp_Charg' => "pb upload",
         'nb_Raq' => "pb upload",
         'nb_pal_leg' => "pb upload",
-        'site' => "pb upload"
+        'site' =>  "pb upload",
     );
 }
 // envoyer le contenu au format json

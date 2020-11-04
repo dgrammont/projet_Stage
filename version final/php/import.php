@@ -1,5 +1,7 @@
 <?php
 
+//traitement du csv vers le tableau et envoye les données vers la bdd
+
 require_once './bddRequete.inc.php';
 
 $bdd = connexionBdd();

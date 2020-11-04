@@ -1,11 +1,12 @@
 <?php
 
+//definition de la BDD
 define("SERVEURBD", "localhost");
 define("LOGIN", "root");
 define("MOTDEPASSE", "toto");
 define("NOMDELABASE", "ma_bases");
 
-//connection avec la basse de donnée (fonctionnel)
+//connection avec la basse de donnée 
 function connexionBdd() {
     try {
         $pdoOptions = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
@@ -30,7 +31,7 @@ function viderBass() {
     }
 }
 
-//suprime la bases de donnée (fonctionnel)
+//suprime la bases de donnée 
 function delBdd() {
     try {
         $bdd = connexionBdd();
@@ -42,7 +43,7 @@ function delBdd() {
     }
 }
 
-//crée la bases de donnée (fonctionnel)
+//crée la bases de donnée 
 function createBdd() {
     try {
         $bdd = connexionBdd();
@@ -54,7 +55,7 @@ function createBdd() {
     }
 }
 
-// lors de la création d'une ligne ajoute sont numeros de ligne dans la basse dans le champ ligne (fonctionnel)
+// lors de la création d'une ligne ajoute sont numeros de ligne dans la basse dans le champ ligne 
 function ajoutLigne($ligne) {
     try {
         $bdd = connexionBdd();
@@ -69,7 +70,7 @@ function ajoutLigne($ligne) {
     }
 }
 
-// permet de modifier une ligne crée par utilisateur (fonctionnel)
+// permet de modifier une ligne crée par utilisateur 
 function mise_jour_ligne_uti($ligne, $report, $exp, $dpt, $edi, $hrev, $transporteur, $hLiv, $destinataire, $nbSupp, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site) {
     try {
         $bdd = connexionBdd();
@@ -106,7 +107,7 @@ function mise_jour_ligne_uti($ligne, $report, $exp, $dpt, $edi, $hrev, $transpor
     }
 }
 
-// permet de modifier une ligne crée par le fichier (fonctionnel)
+// permet de modifier une ligne crée par le fichier 
 function mise_jour_ligne_file($ligne, $report, $quai, $cariste, $debutCariste, $finCariste, $hAriv, $porte, $chargeur, $debutChargeur, $finChargeur, $nbSuppChargeur, $nbRaq, $nbpalLeg, $site) {
     try {
         $bdd = connexionBdd();
@@ -135,7 +136,7 @@ function mise_jour_ligne_file($ligne, $report, $quai, $cariste, $debutCariste, $
     }
 }
 
-//renvoye tous le contenu de la basses vers le tableau (non fonctionel)
+//renvoye tous le contenu de la basses vers le tableau 
 function renvoyerTableau() {
     try {
         $bdd = connexionBdd();

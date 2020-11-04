@@ -52,6 +52,7 @@ function upload(event) {
 
         }
     });
+    //fait aparaitre les boutton
     $("#ajoute_ligne").css("display", "block");
     $("#nbSuppTotal").css("display", "block");
     $("#visuel").css("display", "block");
@@ -63,12 +64,13 @@ function upload(event) {
     $("#nbSuppChargTotal").css("display", "block");
     $("#nbSuppcharg").css("display", "block");
     $("#slashcharg").css("display", "block");
-       
+    
+    //apelle des fonction dans 4s pour laiser le temps au traitement de s'effectuer 
     setTimeout("changerCouleur()", 4000);
     setTimeout("nombreDeSupp()", 4000);
 }
 
-
+//met en vert quand un chargeur a fini et ajoute le nombre de supp au total efectué 
 function diffTimeCharg() {
 
     var id = $(this).attr('id');
@@ -132,7 +134,7 @@ function diffTimeCharg() {
     }
 }
 
-
+//met en vert quand un cariste a fini et ajoute le nombre de supp au total efectué 
 function diffTimeCarist() {
      
     var id = $(this).attr('id');
@@ -192,8 +194,6 @@ function diffTimeCarist() {
     }
     }
 }
-
-
 
 // permet de rajouter une ligne 
 function addLine() {
@@ -358,7 +358,6 @@ function deleteTable() {
     }
 }
 
-
 //permet de voir le visuel pour la page qui permet d'envoyer la tableau dans le format voulu. 
 function voirVisuel() {
     document.location.href = "exportVisual.html";
@@ -494,6 +493,7 @@ function bouttonEnvoyerUti() {
     });
 }
 
+//met tous les cariste et les chargeur en rouge.
 function changerCouleur() {
 
     var t = $('#data-planning').DataTable();
@@ -521,6 +521,7 @@ function changerCouleur() {
 
 }
 
+//calculle le nombre de support et le met dans le span total
 function nombreDeSupp() {
     var t = $('#data-planning').DataTable();
     var nbLigne = t.rows().count();
@@ -542,6 +543,7 @@ function nombreDeSupp() {
     
 }
 
+//lors de la modification d'un champ nb supp rajoute la quantité au total 
 function ajouterSupp(){
     
     var id = $(this).attr('id');
@@ -571,6 +573,7 @@ function ajouterSupp(){
      
 }
 
+//les fonction appelé lorsque le document est pret
 $(document).ready(function () {
     //envoyer du fichier
     // $('#upload_csv').on('submit', upload);

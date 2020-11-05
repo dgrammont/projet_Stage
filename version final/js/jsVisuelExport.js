@@ -11,15 +11,15 @@ function visuel(event) {
         },
 
         success: function (donnees, status, xhr) {
-            
-     $('#data-planning').DataTable({
-                data : donnees,
+
+            $('#data-planning').DataTable({
+                data: donnees,
                 dataType: 'json',
                 dom: 'Bfrtip',
                 buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
                 fixedHeader: false,
                 "lengthMenu": [[10, 15, 25, 50, 100, -1], [10, 15, 25, 50, 100, "Tous"]],
-                'iDisplayLength': 25,
+                'iDisplayLength': -1,
                 columns: [
 
                     {data: "ligne"},
@@ -48,7 +48,7 @@ function visuel(event) {
                 ]
 
             });
-            
+
         },
         error: function (xhr, status, error) {
             console.log("param : " + JSON.stringify(xhr));
@@ -61,17 +61,6 @@ function visuel(event) {
 
 }
 
-// moyenne des chargement 57 palette par heure 
-function diffTimeCharg() {
-  
- 
-}
-
-// moyenne des cariste  25 pallete par heure 
-function diffTimeCarist() {
-
-  
-}
 
 //recharge la page    
 function reloadPage() {
@@ -105,7 +94,7 @@ $(document).ready(function () {
     document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
     setTimeout("reloadPage()", 304000);
     var fiveMinutes = 60 * 5,
-    display = document.querySelector('#time');
+            display = document.querySelector('#time');
     startTimer(fiveMinutes, display);
     visuel();
 
